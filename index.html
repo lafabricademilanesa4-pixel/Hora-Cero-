@@ -3,87 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hora Cero | El Valor del Tiempo</title>
+    <title>Hora Cero | Catálogo Exclusivo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #faf9f6; }
-        h1, h2, h3, h4, h5, .serif { font-family: 'Playfair Display', serif; }
-        .hero-bg { 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.postimg.cc/mD8mK6Zz/herobg.jpg'); 
-            background-size: cover; background-position: center; 
-        }
-        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0f0f0f; color: #e5e5e5; }
+        h1, h2, h3, h4, .serif { font-family: 'Playfair Display', serif; }
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); }
+        .card-glass { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; }
+        .card-glass:hover { border-color: #d4af37; transform: translateY(-5px); }
     </style>
 </head>
 <body>
 
-    <nav class="p-5 flex justify-between items-center bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-stone-200">
-        <h1 class="text-xl font-bold tracking-widest uppercase">Hora Cero</h1>
-        <a href="https://wa.me/59896643887" class="text-stone-800 text-sm font-bold border-b-2 border-stone-800">CONTACTO</a>
+    <nav class="p-6 flex justify-between items-center bg-black/80 backdrop-blur-md sticky top-0 z-50 border-b border-white/10">
+        <h1 class="text-2xl font-bold tracking-[0.2em] uppercase text-[#d4af37]">Hora Cero</h1>
+        <a href="https://wa.me/59896643887" class="text-xs font-bold tracking-widest border border-[#d4af37] px-4 py-2 text-[#d4af37] hover:bg-[#d4af37] hover:text-black transition">WHATSAPP</a>
     </nav>
 
-    <section class="h-[70vh] flex items-center justify-center text-center text-white hero-bg px-6">
-        <div>
-            <h2 class="text-5xl md:text-7xl mb-4 italic">El tiempo es tuyo.</h2>
-            <p class="text-lg opacity-90 max-w-lg mx-auto font-light italic">Vuelve a conectar con el presente. Relojes analógicos para hombres con carácter.</p>
+    <section class="py-20 px-6 text-center">
+        <h2 class="text-5xl md:text-7xl mb-4 italic">El tiempo es un arte.</h2>
+        <p class="text-stone-400 max-w-2xl mx-auto font-light tracking-wide">Selección exclusiva para el hombre que valora la presencia y la precisión analógica en Paysandú.</p>
+    </section>
+
+    <section class="max-w-6xl mx-auto px-6 mb-20">
+        <div class="flex items-center gap-4 mb-10">
+            <h3 class="text-2xl italic text-[#d4af37]">Sección 1: De Vestir</h3>
+            <div class="h-[1px] bg-white/20 flex-grow"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="card-glass p-4 cursor-pointer" onclick="openModal('Curren Skeleton Leather', 'La ingeniería a la vista. Un reloj que muestra su corazón mecánico con una malla de cuero que grita sofisticación. Ideal para quien busca destacar con elegancia técnica.', 'https://i.postimg.cc/mD89xYV4/Curren-Skeleton.png')">
+                <img src="https://i.postimg.cc/mD89xYV4/Curren-Skeleton.png" class="w-full aspect-square object-cover mb-4">
+                <h4 class="text-lg font-bold">Curren Skeleton Leather</h4>
+                <p class="text-sm text-stone-500">Elegancia con propósito.</p>
+            </div>
+            <div class="card-glass p-4 cursor-pointer" onclick="openModal('Forsining Skeleton Silver', 'Pura distinción en plata y azul. Su diseño transparente permite apreciar la complejidad del tiempo. Es más que un accesorio, es una pieza de conversación.', 'https://i.postimg.cc/pTXzX0pL/Forsining-Skeleton.png')">
+                <img src="https://i.postimg.cc/pTXzX0pL/Forsining-Skeleton.png" class="w-full aspect-square object-cover mb-4">
+                <h4 class="text-lg font-bold">Forsining Skeleton Silver</h4>
+                <p class="text-sm text-stone-500">El arte de la precisión.</p>
+            </div>
         </div>
     </section>
 
-    <section class="py-16 px-6 max-w-6xl mx-auto">
-        <h3 class="text-3xl text-center mb-12 italic border-b border-stone-200 pb-6">Colección Curada</h3>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            
-            <div class="group cursor-pointer" onclick="openModal('Minimalist Black', 'Este no es solo un reloj negro, es una declaración de minimalismo puro. Diseñado para el hombre que no necesita llamar la atención porque su presencia ya lo hace. Malla ajustable y esfera limpia.', 'https://i.postimg.cc/67JKK4mQ/1.jpg')">
-                <div class="aspect-square overflow-hidden bg-stone-200 mb-4">
-                    <img src="https://i.postimg.cc/67JKK4mQ/1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                </div>
-                <h4 class="text-lg font-bold uppercase tracking-tighter">Minimalist Black Edition</h4>
-                <p class="text-stone-500 text-sm italic">Elegancia en total oscuridad.</p>
+    <section class="max-w-6xl mx-auto px-6 mb-20">
+        <div class="flex items-center gap-4 mb-10">
+            <h3 class="text-2xl italic text-[#d4af37]">Sección 3: Estilo Militar</h3>
+            <div class="h-[1px] bg-white/20 flex-grow"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="card-glass p-4 cursor-pointer" onclick="openModal('Timex Scout', 'Inspirado en los relojes de campo clásicos. Resistente, legible y con ese carácter aventurero que no teme a los desafíos diarios.', 'https://i.postimg.cc/KYS56X5P/Timex-Scout.png')">
+                <img src="https://i.postimg.cc/KYS56X5P/Timex-Scout.png" class="w-full aspect-square object-cover mb-4">
+                <h4 class="font-bold">Timex Scout</h4>
             </div>
-
-            <div class="group cursor-pointer" onclick="openModal('Gold Heritage', 'El dorado es el color del éxito. Este modelo combina la tradición con la modernidad. Ideal para reuniones de negocios o eventos donde tu estilo define quién eres.', 'https://i.postimg.cc/Z9tmmvM4/2.jpg')">
-                <div class="aspect-square overflow-hidden bg-stone-200 mb-4">
-                    <img src="https://i.postimg.cc/Z9tmmvM4/2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                </div>
-                <h4 class="text-lg font-bold uppercase tracking-tighter">Gold Heritage</h4>
-                <p class="text-stone-500 text-sm italic">Distinción en cada segundo.</p>
+            <div class="card-glass p-4 cursor-pointer" onclick="openModal('Timex Gallatin', 'Diseñado para la acción. Con su correa de nylon táctica, es el compañero perfecto para la calle y la aventura.', 'https://i.postimg.cc/jSRWp12c/Timex-Gallatin.png')">
+                <img src="https://i.postimg.cc/jSRWp12c/Timex-Gallatin.png" class="w-full aspect-square object-cover mb-4">
+                <h4 class="font-bold">Timex Gallatin</h4>
             </div>
-
-            <div class="group cursor-pointer" onclick="openModal('Silver Classic', 'La versatilidad del acero. Un reloj que te acompaña desde un café informal en Paysandú hasta la cena más elegante. Robusto, confiable y eterno.', 'https://i.postimg.cc/nXQxNG0c/3.jpg')">
-                <div class="aspect-square overflow-hidden bg-stone-200 mb-4">
-                    <img src="https://i.postimg.cc/nXQxNG0c/3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                </div>
-                <h4 class="text-lg font-bold uppercase tracking-tighter">Silver Classic Steel</h4>
-                <p class="text-stone-500 text-sm italic">El estándar de la caballerosidad.</p>
+            <div class="card-glass p-4 cursor-pointer" onclick="openModal('Naviforce Militar', 'Fuerza y presencia. Un diseño imponente que combina la estética militar con la funcionalidad moderna.', 'https://i.postimg.cc/pLjCHL6Z/Naviforce-Militar.png')">
+                <img src="https://i.postimg.cc/pLjCHL6Z/Naviforce-Militar.png" class="w-full aspect-square object-cover mb-4">
+                <h4 class="font-bold">Naviforce Militar</h4>
             </div>
+        </div>
+    </section>
 
-            <div class="group cursor-pointer" onclick="openModal('Aviador Vintage', 'Inspirado en la libertad de los cielos. Este modelo evoca la época dorada de la aviación. Para hombres que aman la historia y la aventura.', 'https://i.postimg.cc/fV0s1fBD/4.jpg')">
-                <div class="aspect-square overflow-hidden bg-stone-200 mb-4">
-                    <img src="https://i.postimg.cc/fV0s1fBD/4.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                </div>
-                <h4 class="text-lg font-bold uppercase tracking-tighter">Aviador Vintage</h4>
-                <p class="text-stone-500 text-sm italic">Un viaje al pasado con precisión actual.</p>
+    <section class="max-w-6xl mx-auto px-6 mb-20">
+        <div class="flex items-center gap-4 mb-10">
+            <h3 class="text-2xl italic text-[#d4af37]">Sección 4: Pro-Moto</h3>
+            <div class="h-[1px] bg-white/20 flex-grow"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="card-glass p-4 cursor-pointer" onclick="openModal('SKMEI 2100 Carbon', 'Inspirado en la fibra de carbono. Ligero pero indestructible, diseñado para resistir las vibraciones del camino y el estilo de vida activo.', 'https://i.postimg.cc/bvv8v3Y6/SKMEI-2100.png')">
+                <img src="https://i.postimg.cc/bvv8v3Y6/SKMEI-2100.png" class="w-full aspect-square object-cover mb-4">
+                <h4 class="font-bold">SKMEI 2100 "Oak" Style</h4>
             </div>
-
-            <div class="group cursor-pointer" onclick="openModal('Executive Blue', 'El azul profundo de la esfera proyecta confianza y serenidad. Un detalle que marca la diferencia en cualquier outfit ejecutivo.', 'https://i.postimg.cc/sMZzb4K0/5.jpg')">
-                <div class="aspect-square overflow-hidden bg-stone-200 mb-4">
-                    <img src="https://i.postimg.cc/sMZzb4K0/5.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                </div>
-                <h4 class="text-lg font-bold uppercase tracking-tighter">Executive Deep Blue</h4>
-                <p class="text-stone-500 text-sm italic">Confianza en tu muñeca.</p>
+            <div class="card-glass p-4 cursor-pointer" onclick="openModal('LIGE FOXBOX', 'Resistencia total. Un reloj robusto, con protección contra impactos y un diseño agresivo para los que viven sobre dos ruedas.', 'https://i.postimg.cc/K8L9Vjsh/LIGE-FOXBOX.png')">
+                <img src="https://i.postimg.cc/K8L9Vjsh/LIGE-FOXBOX.png" class="w-full aspect-square object-cover mb-4">
+                <h4 class="font-bold">LIGE FOXBOX Táctico</h4>
             </div>
+        </div>
+    </section>
 
+    <section class="max-w-6xl mx-auto px-6 mb-20">
+        <div class="flex items-center gap-4 mb-10">
+            <h3 class="text-2xl italic text-[#d4af37]">Clásicos de Siempre</h3>
+            <div class="h-[1px] bg-white/20 flex-grow"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="card-glass p-4 cursor-pointer" onclick="openModal('Casio Royale', 'El icono del viajero. Mapa mundial, 10 años de batería y un estilo retro-futurista que nunca muere.', 'https://i.postimg.cc/pdr5F5kC/Casio-Royale.png')">
+                <img src="https://i.postimg.cc/pdr5F5kC/Casio-Royale.png" class="w-full aspect-square object-cover mb-4">
+                <h4 class="font-bold">Casio Royale AE-1200</h4>
+            </div>
+            <div class="card-glass p-4 cursor-pointer" onclick="openModal('Casio F-91W', 'La leyenda. El reloj más vendido del mundo por una razón: es simplemente perfecto e indestructible.', 'https://i.postimg.cc/g0Bw4G2N/Casio-F91.png')">
+                <img src="https://i.postimg.cc/g0Bw4G2N/Casio-F91.png" class="w-full aspect-square object-cover mb-4">
+                <h4 class="font-bold">Casio F-91W Original</h4>
+            </div>
+            <div class="card-glass p-4 cursor-pointer" onclick="openModal('SKMEI 1251', 'Funcionalidad deportiva pura. Gran legibilidad y resistencia para tu entrenamiento o el día a día.', 'https://i.postimg.cc/BbyV431P/SKMEI-1251.png')">
+                <img src="https://i.postimg.cc/BbyV431P/SKMEI-1251.png" class="w-full aspect-square object-cover mb-4">
+                <h4 class="font-bold">SKMEI 1251 Sport</h4>
+            </div>
         </div>
     </section>
 
     <div id="productModal" class="modal flex items-center justify-center p-4">
-        <div class="bg-white max-w-md w-full p-8 relative rounded-sm shadow-2xl">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-2xl text-stone-400">&times;</button>
-            <img id="modalImg" src="" class="w-full h-64 object-cover mb-6 shadow-lg">
-            <h5 id="modalTitle" class="text-2xl font-bold mb-3 italic"></h5>
-            <p id="modalDesc" class="text-stone-600 mb-8 font-light leading-relaxed"></p>
-            <a id="modalWa" href="" class="block w-full bg-stone-900 text-white text-center py-4 font
-                
+        <div class="bg-[#1a1a1a] border border-white/10 max-w-md w-full p-8 relative rounded-lg shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-3xl text-stone-500">&times;</button>
+            <img id="modalImg" src="" class="w-full h-72 object-cover mb-6 rounded shadow-lg border border-white/5">
+            <h5 id="modalTitle" class="text-2xl font-bold mb-3 italic text-[#d4af37]"></h5>
+            <p id="modalDesc" class="text-stone-400 mb-8 font-light leading-relaxed"></p>
+            <a id="modalWa" href="" class="block w-full bg-[#d4af37] text-black text-center py-4 font-bold tracking-widest text-xs uppercase hover:bg-yellow-600 transition">
+                PEDIR POR WHATSAPP
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function openModal(title, desc, img) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalImg').src = img;
+            document.getElementById('modalWa').href = "https://wa.me/59896643887?text=Hola Carlos! Me interesa el " + title + " de Hora Cero.";
+            document.getElementById('productModal').style.display = "flex";
+        }
+        function closeModal() {
+            document.getElementById('productModal').style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('productModal')) closeModal();
+        }
+    </script>
+</body>
+                                                              </html>
+                                                              

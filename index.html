@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hora Cero | Tiempo de Calidad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Georgia', serif; }
+        .hero-bg { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&q=80'); background-size: cover; background-position: center; }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-900">
+
+    <nav class="p-6 flex justify-between items-center bg-white shadow-sm sticky top-0 z-50">
+        <h1 class="text-2xl font-bold tracking-tighter uppercase">Hora Cero</h1>
+        <div class="space-x-6 hidden md:block">
+            <a href="#filosofia" class="hover:text-stone-500">Filosofía</a>
+            <a href="#coleccion" class="hover:text-stone-500">Colección</a>
+            <a href="#contacto" class="border-l pl-6 border-stone-300 hover:text-stone-500">Contacto</a>
+        </div>
+    </nav>
+
+    <section class="h-[80vh] flex items-center justify-center text-center text-white hero-bg">
+        <div class="px-4">
+            <h2 class="text-5xl md:text-7xl mb-4 italic">Vuelve a lo esencial.</h2>
+            <p class="text-xl md:text-2xl font-light max-w-2xl mx-auto">Menos pantallas, más presente. Descubre nuestra curaduría de relojes analógicos.</p>
+            <a href="#coleccion" class="mt-8 inline-block bg-white text-black px-8 py-3 uppercase tracking-widest text-sm hover:bg-stone-200 transition">Ver Catálogo</a>
+        </div>
+    </section>
+
+    <section id="filosofia" class="py-20 px-6 max-w-4xl mx-auto text-center">
+        <h3 class="text-3xl mb-8 uppercase tracking-widest">Nuestra Filosofía</h3>
+        <p class="text-lg leading-relaxed text-stone-700">
+            En <strong>Hora Cero</strong>, creemos que el tiempo es nuestro recurso más valioso. Un reloj analógico es elegir desconectarse de las notificaciones para reconectarse con el momento.
+        </p>
+    </section>
+
+    <section id="coleccion" class="py-20 bg-stone-100 px-6">
+        <h3 class="text-3xl text-center mb-12 uppercase tracking-widest">La Curaduría</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="bg-white p-4 shadow-md group text-center">
+                <div class="h-64 bg-stone-200 mb-4 flex items-center justify-center">
+                   <i class="fa-solid fa-clock text-4xl text-stone-400"></i>
+                </div>
+                <h4 class="font-bold text-lg uppercase">Modelo Clásico</h4>
+                <p class="text-stone-500 mb-4">Elegancia atemporal.</p>
+                <span class="text-xl font-bold">Consultar</span>
+            </div>
+            <div class="bg-white p-4 shadow-md group text-center">
+                <div class="h-64 bg-stone-200 mb-4 flex items-center justify-center">
+                   <i class="fa-solid fa-clock text-4xl text-stone-400"></i>
+                </div>
+                <h4 class="font-bold text-lg uppercase">Minimalist Black</h4>
+                <p class="text-stone-500 mb-4">Lo simple en tu muñeca.</p>
+                <span class="text-xl font-bold">Consultar</span>
+            </div>
+            <div class="bg-white p-4 shadow-md group text-center">
+                <div class="h-64 bg-stone-200 mb-4 flex items-center justify-center">
+                   <i class="fa-solid fa-clock text-4xl text-stone-400"></i>
+                </div>
+                <h4 class="font-bold text-lg uppercase">Aviador Vintage</h4>
+                <p class="text-stone-500 mb-4">Resistencia y carácter.</p>
+                <span class="text-xl font-bold">Consultar</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-20 text-center bg-stone-900 text-white">
+        <h3 class="text-3xl mb-6 uppercase tracking-widest">¿Hablamos de tiempo?</h3>
+        <p class="mb-8 opacity-80">Atención personalizada en Paysandú.</p>
+        <a href="https://wa.me/59899000000" class="bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-full inline-flex items-center gap-3 transition">
+            <i class="fab fa-whatsapp text-2xl"></i>
+            Pedir Catálogo
+        </a>
+    </section>
+
+    <footer class="py-10 text-center text-xs text-stone-400 uppercase tracking-widest">
+        &copy; 2026 Hora Cero - Paysandú, Uruguay.
+    </footer>
+
+</body>
+</html>

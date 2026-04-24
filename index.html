@@ -3,279 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hora Cero - Relojes de Selección</title>
+    <title>Hora Cero | Relojería de Selección</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         :root {
-            --primario: #121212;
+            --primario: #0f0f0f;
             --secundario: #d4af37;
-            --fondo: #f8f9fa;
-            --texto: #222;
+            --acento: #e6e6e6;
             --blanco: #ffffff;
+            --whatsapp: #25d366;
         }
 
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: var(--fondo);
-            color: var(--texto);
+            background-color: #fdfdfd;
+            color: var(--primario);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
         header {
             background-color: var(--primario);
             color: var(--blanco);
-            padding: 1.5rem 0;
+            padding: 2rem 0;
             text-align: center;
-            border-bottom: 2px solid var(--secundario);
+            border-bottom: 3px solid var(--secundario);
         }
 
         .logo h1 {
             margin: 0;
-            letter-spacing: 5px;
-            font-weight: 700;
+            letter-spacing: 8px;
+            font-weight: 900;
             text-transform: uppercase;
+            font-size: 2.2rem;
         }
 
         .hero {
-            background-color: var(--primario);
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-position: center;
             color: var(--blanco);
-            padding: 50px 20px;
+            padding: 100px 20px;
             text-align: center;
-        }
-
-        .hero h2 { font-size: 2rem; margin-bottom: 10px; }
-        
-        .badge-local {
-            display: inline-block;
-            border: 1px solid var(--secundario);
-            color: var(--secundario);
-            padding: 5px 15px;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .container {
-            max-width: 1100px;
-            margin: 40px auto;
+            max-width: 1200px;
+            margin: -50px auto 40px;
             padding: 0 20px;
-        }
-
-        .categoria-titulo {
-            font-weight: 300;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 50px 0 25px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
+            position: relative;
+            z-index: 10;
         }
 
         .productos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
 
         .producto-card {
             background: var(--blanco);
-            border: 1px solid #eee;
-            transition: 0.3s;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            transition: 0.4s;
         }
 
         .producto-card:hover {
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: translateY(-10px);
         }
 
-        .producto-card img {
+        .img-container {
             width: 100%;
-            height: 320px;
-            object-fit: contain;
+            height: 350px;
             background-color: #fff;
-            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .producto-card img, .producto-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 15px;
+            transition: transform 0.6s ease;
+        }
+
+        .producto-card:hover img, .producto-card:hover video {
+            transform: scale(1.05);
         }
 
         .info {
-            padding: 20px;
-            text-align: center;
+            padding: 25px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
 
-        .info h3 { margin: 10px 0; font-size: 1.1rem; text-transform: uppercase; }
-        .info p { font-size: 0.85rem; color: #666; margin-bottom: 15px; }
-
-        .btn-comprar {
-            display: inline-block;
-            background-color: var(--primario);
-            color: var(--blanco);
-            text-align: center;
-            padding: 12px 20px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-
-        .btn-comprar:hover {
-            background-color: var(--secundario);
+        .info h3 {
+            margin: 0 0 15px;
+            font-size: 1.2rem;
             color: var(--primario);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--secundario);
+            display: inline-block;
+            width: fit-content;
         }
 
-        .seccion-paysandu {
-            background-color: #fff;
-            padding: 60px 20px;
-            margin-top: 60px;
-            border-top: 1px solid #eee;
-            text-align: center;
+        .descripcion-profunda {
+            font-size: 0.9rem;
+            color: #444;
+            margin-bottom: 20px;
+            text-align: justify;
         }
 
-        .beneficios-locales {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        .beneficio-item { max-width: 300px; }
-        .beneficio-item i { color: var(--secundario); font-size: 2rem; margin-bottom: 15px; }
-        .beneficio-item h4 { margin: 10px 0; font-size: 1.1rem; }
-        .beneficio-item p { font-size: 0.9rem; color: #555; }
-
-        footer {
-            background: var(--primario);
-            color: #666;
-            padding: 40px;
-            text-align: center;
-            font-size: 0.8rem;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="logo">
-            <h1>Hora Cero</h1>
-        </div>
-    </header>
-
-    <section class="hero">
-        <h2>Catálogo Exclusivo</h2>
-        <p>Relojería de precisión con envío a todo el país.</p>
-        <div class="badge-local">Paysandú - Uruguay</div>
-    </section>
-
-    <div class="container">
+        .btn-whatsapp {
+            display: block;
+            background
         
-        <h2 class="categoria-titulo">Colección Destacada</h2>
-        <div class="productos-grid">
-            
-            <div class="producto-card">
-                <img src="https://i.ibb.co/4nkpvZrY/1001093896.jpg" alt="Timex Heritage">
-                <div class="info">
-                    <h3>Timex Heritage Roman</h3>
-                    <p>Minimalismo elegante. Esfera negra profunda con números romanos plateados.</p>
-                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
-                </div>
-            </div>
-
-            <div class="producto-card">
-                <img src="https://i.ibb.co/1GgfGb2K/1001093894.jpg" alt="Casio Analógico">
-                <div class="info">
-                    <h3>Casio Date Display</h3>
-                    <p>El clásico con calendario doble y esfera blanca de alta legibilidad.</p>
-                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
-                </div>
-            </div>
-
-            <div class="producto-card">
-                <img src="https://i.ibb.co/Pvzn5hDW/1001093901.jpg" alt="Casio Quartz">
-                <div class="info">
-                    <h3>Casio Sport Orange</h3>
-                    <p>Diseño táctico con detalles en naranja para una lectura rápida y deportiva.</p>
-                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
-                </div>
-            </div>
-
-            <div class="producto-card">
-                <img src="https://i.ibb.co/NnZ0xKKm/1001093907.jpg" alt="Casio Vintage">
-                <div class="info">
-                    <h3>Casio Vintage Illuminator</h3>
-                    <p>El ícono retro de acero. Estilo atemporal con luz azul y cronómetro.</p>
-                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
-                </div>
-            </div>
-
-            <div class="producto-card">
-                <img src="https://i.ibb.co/R4SHSZS8/1001093909.jpg" alt="Timex Solar">
-                <div class="info">
-                    <h3>Timex Expedition Solar</h3>
-                    <p>Tecnología de carga por luz. Robusto, ecológico y sin necesidad de pilas.</p>
-                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
-                </div>
-            </div>
-
-            <div class="producto-card">
-                <img src="https://i.ibb.co/VW3tPYSh/1001093911.jpg" alt="Timex Field">
-                <div class="info">
-                    <h3>Timex Field Indiglo</h3>
-                    <p>Estilo militar clásico con iluminación Indiglo para ver en total oscuridad.</p>
-                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
-                </div>
-            </div>
-
-            <div class="producto-card">
-                <img src="https://i.ibb.co/PvXwhsGs/1001093905.jpg" alt="Casio Royale">
-                <div class="info">
-                    <h3>Casio World Time</h3>
-                    <p>31 zonas horarias y batería de 10 años. El reloj del viajero incansable.</p>
-                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
-                </div>
-            </div>
-
-            <div class="producto-card">
-                <img src="https://i.ibb.co/YFDhHnc2/1001093903.jpg" alt="G-SHOCK">
-                <div class="info">
-                    <h3>G-SHOCK Original</h3>
-                    <p>Resistencia extrema a impactos y agua 200m. Prácticamente indestructible.</p>
-                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <section class="seccion-paysandu">
-        <h3>Servicio Exclusivo en Paysandú Ciudad</h3>
-        <p>Priorizamos la confianza de nuestros vecinos.</p>
-        <div class="beneficios-locales">
-            <div class="beneficio-item">
-                <i class="fas fa-eye"></i>
-                <h4>Garantía de Satisfacción</h4>
-                <p>Te lo llevamos a tu domicilio. Lo revisás, te lo probás y si no es lo que buscabas, lo devolvés sin costo.</p>
-            </div>
-            <div class="beneficio-item">
-                <i class="fas fa-bolt"></i>
-                <h4>Entrega en el Día</h4>
-                <p>Comprás hoy, lo tenés hoy. Sin esperas ni trámites largos.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 HORA CERO - Paysandú, Uruguay</p>
-        <p>Desarrollado por Martínez & Martínez Marketing Digital</p>
-    </footer>
-
-</body>
-</html>

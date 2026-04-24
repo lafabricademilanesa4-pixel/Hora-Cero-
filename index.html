@@ -10,7 +10,7 @@
         :root {
             --primario: #0f0f0f;
             --secundario: #d4af37;
-            --acento: #e6e6e6;
+            --fondo: #fdfdfd;
             --blanco: #ffffff;
             --whatsapp: #25d366;
         }
@@ -18,7 +18,7 @@
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
-            background-color: #fdfdfd;
+            background-color: var(--fondo);
             color: var(--primario);
             line-height: 1.6;
             overflow-x: hidden;
@@ -45,13 +45,13 @@
             background-size: cover;
             background-position: center;
             color: var(--blanco);
-            padding: 100px 20px;
+            padding: 80px 20px;
             text-align: center;
         }
 
         .container {
             max-width: 1200px;
-            margin: -50px auto 40px;
+            margin: -40px auto 40px;
             padding: 0 20px;
             position: relative;
             z-index: 10;
@@ -59,18 +59,18 @@
 
         .productos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
 
         .producto-card {
             background: var(--blanco);
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
-            transition: 0.4s;
+            transition: transform 0.3s ease;
         }
 
         .producto-card:hover {
@@ -79,52 +79,173 @@
 
         .img-container {
             width: 100%;
-            height: 350px;
+            height: 320px;
             background-color: #fff;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            border-bottom: 1px solid #f0f0f0;
         }
 
-        .producto-card img, .producto-card video {
-            width: 100%;
-            height: 100%;
+        .img-container img {
+            width: 90%;
+            height: 90%;
             object-fit: contain;
-            padding: 15px;
-            transition: transform 0.6s ease;
+            transition: transform 0.5s ease;
         }
 
-        .producto-card:hover img, .producto-card:hover video {
-            transform: scale(1.05);
+        .producto-card:hover img {
+            transform: scale(1.1);
         }
 
         .info {
-            padding: 25px;
+            padding: 20px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            text-align: center;
         }
 
         .info h3 {
-            margin: 0 0 15px;
-            font-size: 1.2rem;
-            color: var(--primario);
+            margin: 0 0 10px;
+            font-size: 1.1rem;
             text-transform: uppercase;
             border-bottom: 2px solid var(--secundario);
             display: inline-block;
-            width: fit-content;
+            align-self: center;
         }
 
         .descripcion-profunda {
-            font-size: 0.9rem;
-            color: #444;
-            margin-bottom: 20px;
-            text-align: justify;
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 15px;
         }
 
         .btn-whatsapp {
             display: block;
-            background
+            background-color: var(--primario);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+            transition: 0.3s;
+            margin-top: auto;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: var(--whatsapp);
+        }
+
+        .seccion-paysandu {
+            background-color: var(--primario);
+            color: var(--blanco);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .beneficios-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .beneficio-card {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            border: 1px solid var(--secundario);
+            border-radius: 8px;
+        }
+
+        footer {
+            background: #000;
+            color: #666;
+            padding: 30px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>HORA CERO</h1>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h2 data-aos="fade-down">Tu Marca Personal en la Muñeca</h2>
+        <p>Relojería de Selección | Paysandú, Uruguay</p>
+    </section>
+
+    <div class="container">
+        <div class="productos-grid">
             
+            <div class="producto-card" data-aos="fade-up">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/4nkpvZrY/1001093896.jpg" alt="Timex Heritage">
+                </div>
+                <div class="info">
+                    <h3>Timex Heritage Roman</h3>
+                    <p class="descripcion-profunda">Elegancia pura con números romanos. El aliado perfecto para el hombre que busca sofisticación y un estilo ejecutivo impecable.</p>
+                    <a href="https://wa.me/59896643887?text=Me interesa el Timex Heritage Roman" class="btn-whatsapp">Lo quiero tener</a>
+                </div>
+            </div>
+
+            <div class="producto-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/1GgfGb2K/1001093894.jpg" alt="Casio Day-Date">
+                </div>
+                <div class="info">
+                    <h3>Casio Day-Date Classic</h3>
+                    <p class="descripcion-profunda">Ingeniería japonesa y calendario doble. Un diseño robusto y confiable para quienes valoran la precisión en cada minuto.</p>
+                    <a href="https://wa.me/59896643887?text=Me interesa el Casio Day-Date Classic" class="btn-whatsapp">Lo quiero tener</a>
+                </div>
+            </div>
+
+            <div class="producto-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/NnZ0xKKm/1001093907.jpg" alt="Casio Vintage">
+                </div>
+                <div class="info">
+                    <h3>Casio Vintage Illuminator</h3>
+                    <p class="descripcion-profunda">El ícono de acero que nunca pasa de moda. Estilo retro-urbano con cronómetro y luz azul para los que marcan tendencia.</p>
+                    <a href="https://wa.me/59896643887?text=Me interesa el Casio Vintage" class="btn-whatsapp">Lo quiero tener</a>
+                </div>
+            </div>
+
+            <div class="producto-card" data-aos="fade-up">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/YFDhHnc2/1001093903.jpg" alt="G-SHOCK">
+                </div>
+                <div class="info">
+                    <h3>G-SHOCK DW-5600</h3>
+                    <p class="descripcion-profunda">Simplemente indestructible. Resistencia extrema a golpes y 200m bajo el agua. El reloj táctico por excelencia.</p>
+                    <a href="https://wa.me/59896643887?text=Me interesa el G-SHOCK" class="btn-whatsapp">Lo quiero tener</a>
+                </div>
+            </div>
+
+            <div class="producto-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/VW3tPYSh/1001093911.jpg" alt="Timex Field">
+                </div>
+                <div class="info">
+                    <h3>Timex Expedition Field</h3>
+                    <p class="descripcion-profunda">Inspiración militar con luz Indiglo®. Diseñado para la aventura diaria sin sacrificar la elegancia de un clásico.</p>
+                    <a href="https://wa.me/59896643887?text=Me interesa el Timex Field" class="btn-whatsapp">Lo quiero tener</a>
+                </div>
+            </div>
+
+            <div class="producto-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/PvXwhsGs/1001093905.jpg" alt="Casio Royale">
+                </div>
+                <div class="info">
+                    <h3>
+                        

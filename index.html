@@ -3,134 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hora Cero | Curaduría de Tiempo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Hora Cero - Relojes con Garantía Total</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #050505; color: #d1d1d1; }
-        h1, h2, h3, h4, .serif { font-family: 'Playfair Display', serif; }
-        .gold-accent { color: #c5a059; }
-        .gold-bg { background-color: #c5a059; }
-        .card-watch { background: #111; border: 1px solid #222; transition: all 0.4s ease; overflow: hidden; }
-        .card-watch:hover { border-color: #c5a059; transform: translateY(-8px); }
-        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-blur: 8px; }
+        :root {
+            --primario: #1a1a1a;
+            --secundario: #c5a059; /* Un dorado elegante para resaltar */
+            --fondo: #f4f4f4;
+            --texto: #333;
+            --blanco: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--fondo);
+            color: var(--texto);
+            line-height: 1.6;
+        }
+
+        /* --- Header & Navegación --- */
+        header {
+            background-color: var(--primario);
+            color: var(--blanco);
+            padding: 1rem 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo h1 {
+            margin: 0;
+            letter-spacing: 3px;
+            font-weight: 300;
+            color: var(--secundario);
+        }
+
+        /* --- Hero Section (Propuesta de Valor) --- */
+        .hero {
+            background-color: var(--primario);
+            color: var(--blanco);
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--secundario);
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+
+        .confianza-badge {
+            display: inline-block;
+            background: var(--secundario);
+            color: var(--primario);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* --- Grid de Productos --- */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .categoria-titulo {
+            border-left: 5px solid var(--secundario);
+            padding-left: 15px;
+            margin: 40px 0 20px;
+            text-transform: uppercase;
+        }
+
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .producto-card {
+            background: var(--blanco);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .producto-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .img-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-style: italic;
+        }
+
+        .info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info h3 {
+            margin: 0 0 10px;
+            color: var(--primario);
+        }
+
+        .info p {
+            font-size: 0.9rem;
+            color: #666;
+            flex-grow: 1;
+        }
+
+        .tag-resistencia {
+            font-size: 0.75rem;
+            background: #eee;
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .btn-comprar {
+            display: block;
+            background-color: var(--primario);
+            color: var(--blanco);
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-comprar:hover {
+            background-color: var(--secundario);
+            color: var(--primario);
+        }
+
+        /* --- Sección Cero Riesgo --- */
+        .cero-riesgo {
+            background-color: #fff;
+            padding: 50px 20px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .pasos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .paso {
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            padding: 20px;
+        }
+
+        .paso i {
+            font-size: 2.5rem;
+            color: var(--secundario);
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background-color: var(--primario);
+            color: #888;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="p-6 flex justify-between items-center bg-black/90 sticky top-0 z-50 border-b border-white/5">
-        <h1 class="text-2xl font-bold tracking-[0.3em] uppercase gold-accent">Hora Cero</h1>
-        <div class="hidden md:block space-x-6 text-[10px] tracking-[0.2em] uppercase font-bold">
-            <a href="#vestir" class="hover:text-white transition">De Vestir</a>
-            <a href="#tactico" class="hover:text-white transition">Táctico</a>
-            <a href="#clasicos" class="hover:text-white transition">Clásicos</a>
+    <header>
+        <div class="logo">
+            <h1>HORA CERO</h1>
         </div>
-    </nav>
+    </header>
 
-    <section class="py-24 px-6 text-center border-b border-white/5">
-        <h2 class="text-5xl md:text-8xl mb-6 italic text-white">El tiempo es actitud.</h2>
-        <p class="text-stone-500 max-w-2xl mx-auto font-light text-lg italic">
-            En un mundo digital, portar un reloj analógico no es ver la hora, es marcar tu presencia.
-        </p>
-    </section>
-
-    <section id="vestir" class="max-w-6xl mx-auto px-6 py-20">
-        <h3 class="text-3xl mb-12 italic gold-accent border-b border-white/10 pb-4">Línea de Vestir & Estatus</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            
-            <div class="card-watch p-5 cursor-pointer" onclick="openModal('Curren Skeleton Luxury', 'El arte de la mecánica en tu muñeca. Su esfera transparente revela la complejidad del tiempo, mientras que su malla de cuero genuino aporta la sobriedad que un líder necesita.', 'Malla de cuero reforzada, Esfera tipo Skeleton, Resistente a salpicaduras.', 'Porque no solo usas un reloj, muestras que valoras el detalle y la ingeniería. Es el accesorio perfecto para cerrar tratos y destacar en reuniones sociales.', 'https://m.media-amazon.com/images/I/71YF98fX6SL._AC_UY1000_.jpg')">
-                <img src="https://m.media-amazon.com/images/I/71YF98fX6SL._AC_UY1000_.jpg" class="w-full aspect-square object-cover mb-6">
-                <h4 class="text-xl font-bold mb-2">Curren Skeleton Leather</h4>
-                <p class="text-xs gold-accent tracking-widest uppercase">Elegancia Técnica</p>
-            </div>
-
-            <div class="card-watch p-5 cursor-pointer" onclick="openModal('Forsining Silver Skeleton', 'Pura sofisticación visual. El contraste entre el plateado pulido y el movimiento mecánico azulado crea una pieza única de joyería masculina.', 'Movimiento mecánico automático, Cristal mineral endurecido, Brazalete de acero.', 'Es la elección del hombre que entiende que el lujo no es gritar, sino ser notado por el buen gusto. Un diseño que nunca pasa inadvertido.', 'https://m.media-amazon.com/images/I/71Z-T+h7jRL._AC_UY1000_.jpg')">
-                <img src="https://m.media-amazon.com/images/I/71Z-T+h7jRL._AC_UY1000_.jpg" class="w-full aspect-square object-cover mb-6">
-                <h4 class="text-xl font-bold mb-2">Forsining Silver Edition</h4>
-                <p class="text-xs gold-accent tracking-widest uppercase">Estatus Superior</p>
-            </div>
-
+    <section class="hero">
+        <h2>El reloj que buscás, sin vueltas.</h2>
+        <p>Recibilo en cualquier parte de Uruguay. Revisalo tranquilo. Si te gusta, lo pagás. Si no, lo devolvés sin costo.</p>
+        <div class="confianza-badge">
+            <i class="fas fa-shield-alt"></i> COMPRA 100% SEGURA - PAGO CONTRA ENTREGA
         </div>
     </section>
 
-    <section id="tactico" class="max-w-6xl mx-auto px-6 py-20 bg-[#080808]">
-        <h3 class="text-3xl mb-12 italic gold-accent border-b border-white/10 pb-4">Línea Táctica & Resistencia</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            <div class="card-watch p-5 cursor-pointer" onclick="openModal('Timex Expedition Scout', 'El estándar del reloj de campo. Diseñado para ser legible bajo cualquier circunstancia gracias a su luz Indiglo. Un guerrero del día a día.', 'Luz nocturna Indiglo, Correa de nylon de alta resistencia, Fecha a las 3.', 'Si buscas un reloj que no tengas que cuidar, sino que te cuide a ti. Es indestructible, clásico y proyecta un espíritu libre y aventurero.', 'https://m.media-amazon.com/images/I/81+D9Nf266L._AC_UY1000_.jpg')">
-                <img src="https://m.media-amazon.com/images/I/81+D9Nf266L._AC_UY1000_.jpg" class="w-full aspect-square object-cover mb-6">
-                <h4 class="font-bold uppercase tracking-tighter">Timex Scout</h4>
-            </div>
-
-            <div class="card-watch p-5 cursor-pointer" onclick="openModal('SKMEI 2100 Carbon', 'Inspirado en los diseños de alta gama con octógono reforzado. Ligero como una pluma pero duro como una roca. Perfecto para el asfalto.', 'Doble horario, Luz LED, Cronómetro, Resistencia 50M.', 'Ideal para el hombre que vive sobre dos ruedas. No vibra, no molesta y su estética "Carbon" le da ese look agresivo que tu moto necesita.', 'https://m.media-amazon.com/images/I/61K-K0u9-iL._AC_UY1000_.jpg')">
-                <img src="https://m.media-amazon.com/images/I/61K-K0u9-iL._AC_UY1000_.jpg" class="w-full aspect-square object-cover mb-6">
-                <h4 class="font-bold uppercase tracking-tighter">SKMEI Carbon Pro</h4>
-            </div>
-
-            <div class="card-watch p-5 cursor-pointer" onclick="openModal('Naviforce Militar', 'Presencia imponente. Un reloj con peso y carácter que combina la lectura analógica con la precisión del cuarzo moderno.', 'Caja de aleación de zinc, Cristal endurecido, Correa de cuero táctico.', 'Es el reloj para quien quiere que su presencia se sienta al entrar a un lugar. Un diseño robusto que dice "estoy listo para lo que sea".', 'https://m.media-amazon.com/images/I/71R2oEreQ7L._AC_UY1000_.jpg')">
-                <img src="https://m.media-amazon.com/images/I/71R2oEreQ7L._AC_UY1000_.jpg" class="w-full aspect-square object-cover mb-6">
-                <h4 class="font-bold uppercase tracking-tighter">Naviforce Tactical</h4>
-            </div>
-
-        </div>
-    </section>
-
-    <section id="clasicos" class="max-w-6xl mx-auto px-6 py-20">
-        <h3 class="text-3xl mb-12 italic gold-accent border-b border-white/10 pb-4">Clásicos Indestructibles</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 text-center">
-            
-            <div class="card-watch p-8 cursor-pointer" onclick="openModal('Casio Royale AE-1200', 'El reloj que todo coleccionista debe tener. Su diseño retro-futurista lo ha convertido en un objeto de culto a nivel mundial.', '10 años de batería, Mapa mundial, 5 alarmas, Resistente al agua 100M.', 'Es el equilibrio perfecto entre utilidad y estilo vintage. Dice que eres una persona práctica, viajera y que aprecia los diseños que superan la prueba del tiempo.', 'https://m.media-amazon.com/images/I/61jS4f6nOFL._AC_UY1000_.jpg')">
-                <img src="https://m.media-amazon.com/images/I/61jS4f6nOFL._AC_UY1000_.jpg" class="w-full h-80 object-contain mb-6 grayscale hover:grayscale-0 transition duration-500">
-                <h4 class="text-2xl font-bold italic">Casio Royale WorldTime</h4>
-            </div>
-
-            <div class="card-watch p-8 cursor-pointer" onclick="openModal('Casio F-91W Original', 'La leyenda viva. El reloj más vendido del mundo por una sola razón: es perfecto. Simple, honesto y para toda la vida.', 'Cronómetro, Alarma diaria, Luz de fondo, Precisión extrema.', 'Es la compra más inteligente. Un clásico que queda bien tanto con jeans como en el trabajo. No compras un reloj, compras una historia de éxito global.', 'https://m.media-amazon.com/images/I/51p6y-eM-XL._AC_UY1000_.jpg')">
-                <img src="https://m.media-amazon.com/images/I/51p6y-eM-XL._AC_UY1000_.jpg" class="w-full h-80 object-contain mb-6 grayscale hover:grayscale-0 transition duration-500">
-                <h4 class="text-2xl font-bold italic">Casio F-91W Legend</h4>
-            </div>
-
-        </div>
-    </section>
-
-    <div id="pModal" class="modal flex items-center justify-center p-4">
-        <div class="bg-[#111] border border-white/10 max-w-lg w-full p-8 relative rounded-lg shadow-2xl">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-3xl text-stone-600">&times;</button>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <img id="mImg" src="" class="w-full h-64 object-contain bg-black rounded p-2">
-                <div>
-                    <h5 id="mTitle" class="text-2xl font-bold mb-2 italic gold-accent"></h5>
-                    <p class="text-[10px] text-stone-500 uppercase tracking-widest mb-4">Prestaciones:</p>
-                    <p id="mSpecs" class="text-xs text-white mb-4 italic"></p>
-                    <p class="text-[10px] text-stone-500 uppercase tracking-widest mb-2">¿Por qué elegirlo?</p>
-                    <p id="mDesc" class="text-sm text-stone-400 mb-6 font-light"></p>
+    <div class="container">
+        
+        <h2 class="categoria-titulo">Clásicos & Elegantes</h2>
+        <div class="productos-grid">
+            <div class="producto-card">
+                <div class="img-placeholder">[ Imagen: Timex Minimalista Negro ]</div>
+                <div class="info">
+                    <span class="tag-resistencia">Elegancia Minimalista</span>
+                    <h3>Timex Heritage Roman</h3>
+                    <p>Caja plateada pulida y esfera negra profunda con números romanos. El equilibrio perfecto entre sobriedad y distinción para el día a día o eventos formales.</p>
+                    <a href="#" class="btn-comprar">Lo quiero - Ver en casa</a>
                 </div>
             </div>
-            <a id="mWa" href="" class="block w-full gold-bg text-black text-center py-4 font-bold tracking-[0.2em] text-xs uppercase hover:bg-[#b08d48] transition mt-6 rounded">
-                ADQUIRIR AHORA POR WHATSAPP
-            </a>
+
+            <div class="producto-card">
+                <div class="img-placeholder">[ Imagen: Casio Analógico Blanco ]</div>
+                <div class="info">
+                    <span class="tag-resistencia">Clásico Indispensable</span>
+                    <h3>Casio Date Display</h3>
+                    <p>Diseño tradicional con esfera blanca nítida, números romanos y calendario doble (día/fecha). Correa de cuero negro con textura croco.</p>
+                    <a href="#" class="btn-comprar">Lo quiero - Ver en casa</a>
+                </div>
+            </div>
+
+            <div class="producto-card">
+                <div class="img-placeholder">[ Imagen: Casio Vintage Plateado ]</div>
+                <div class="info">
+                    <span class="tag-resistencia">Retro Style</span>
+                    <h3>Casio Vintage Illuminator</h3>
+                    <p>El ícono de los 80 vuelto a nacer. Acero inoxidable, luz azul, cronómetro y alarma. Un toque retro que combina con todo.</p>
+                    <a href="#" class="btn-comprar">Lo quiero - Ver en casa</a>
+                </div>
+            </div>
         </div>
+
+        <h2 class="categoria-titulo">Aventura & Tecnología</h2>
+        <div class="productos-grid">
+            <div class="producto-card">
+                <div class="img-placeholder">[ Imagen: Timex Expedition Solar ]</div>
+                <div class="info">
+                    <span class="tag-resistencia">Carga Solar - Sin Pilas</span>
+                    <h3>Timex Expedition Solar</h3>
+                    <p>Se carga con cualquier fuente de luz. Autonomía total, diseño robusto tipo buzo y correa de cuero reforzada. Para el hombre que no quiere complicaciones.</p>
+                    <a href="#" class="btn-comprar">Lo quiero - Ver en casa</a>
+                </div>
+            </div>
+
+            <div class="producto-card">
+                <div class="img-placeholder">[ Imagen: Casio Royale ]</div>
+                <div class="info">
+                    <span class="tag-resistencia">10 Años de Batería</span>
+                    <h3>Casio World Time "Royale"</h3>
+                    <p>Mapa mundial, 31 zonas horarias y 5 alarmas. El reloj definitivo para el viajero o el amante de la tecnología. Resistente 100m.</p>
+                    <a href="#" class="btn-comprar">Lo quiero - Ver en casa</a>
+                </div>
+            </div>
+
+            <div class="producto-card">
+                <div class="img-placeholder">[ Imagen: Timex Field ]</div>
+                <div class="info">
+                    <span class="tag-resistencia">Luz Indiglo®</span>
+                    <h3>Timex Expedition Field</h3>
+                    <p>Estilo militar con excelente legibilidad nocturna gracias a su luz Indiglo. Resistente, rudo y listo para cualquier terreno.</p>
+                    <a href="#" class="btn-comprar">Lo quiero - Ver en casa</a>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="categoria-titulo">Resistencia Extrema</h2>
+        <div class="productos-grid">
+            <div class="producto-card" style="max-width: 400px; margin: auto;">
+                <div class="img-placeholder">[ Imagen: G-SHOCK Original ]</div>
+                <div class="info">
+                    <span class="tag-resistencia">Resistente a Impactos / 200M Water Resist</span>
+                    <h3>Casio G-SHOCK DW-5600</h3>
+                    <p>El estándar mundial de dureza. Construcción a prueba de todo, diseño cuadrado original. Si buscás un reloj para toda la vida, es este.</p>
+                    <a href="#" class="btn-comprar">Lo quiero - Ver en casa</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <footer class="py-16 text-center text-[10px] text-stone-700 uppercase tracking-[0.5em] border-t border-white/5">
-        &copy; 2026 Hora Cero - Paysandú, Uruguay
+    <section class="cero-riesgo">
+        <h2>¿Cómo funciona "Cero Riesgo" de Hora Cero?</h2>
+        <p>Tu confianza es nuestro motor. Comprá en Paysandú y recibí en todo Uruguay con total tranquilidad.</p>
+        <div class="pasos">
+            <div class="paso">
+                <i class="fas fa-mouse-pointer"></i>
+                <h4>1. Elegís</h4>
+                <p>Seleccionás el modelo que más te guste de nuestro catálogo.</p>
+            </div>
+            <div class="paso">
+                <i class="fas fa-truck-moving"></i>
+                <h4>2. Recibís</h4>
+                <p>Te lo enviamos rápido. Lo tenés en la mano antes de soltar un peso.</p>
+            </div>
+            <div class="paso">
+                <i class="fas fa-hand-holding-usd"></i>
+                <h4>3. Pagás</h4>
+                <p>¿Es lo que esperabas? Lo pagás al recibir. ¿No te convenció? Lo devolvés ahí mismo.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Hora Cero - Paysandú, Uruguay.</p>
+        <p><small>Martínez & Martínez Marketing Digital</small></p>
     </footer>
 
-    <script>
-        function openModal(title, desc, specs, why, img) {
-            document.getElementById('mTitle').innerText = title;
-            document.getElementById('mDesc').innerText = desc;
-            document.getElementById('mSpecs').innerText = specs;
-            document.getElementById('mImg').src = img;
-            document.getElementById('mWa').href = "https://wa.me/59896643887?text=Hola Carlos! Me interesa el " + title + ". ¿Está disponible?";
-            document.getElementById('pModal').style.display = "flex";
-        }
-        function closeModal() {
-            document.getElementById('pModal').style.display = "none";
-        }
-        window.onclick = function(event) {
-            if (event.target == document.getElementById('pModal')) closeModal();
-        }
-    </script>
 </body>
 </html>

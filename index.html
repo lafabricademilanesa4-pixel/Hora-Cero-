@@ -3,157 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hora Cero - Relojes con Garantía Total</title>
+    <title>Hora Cero - Relojes de Selección</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primario: #1a1a1a;
-            --secundario: #c5a059; /* Un dorado elegante para resaltar */
-            --fondo: #f4f4f4;
-            --texto: #333;
+            --primario: #121212;
+            --secundario: #d4af37;
+            --fondo: #f8f9fa;
+            --texto: #222;
             --blanco: #ffffff;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: var(--fondo);
             color: var(--texto);
-            line-height: 1.6;
         }
 
-        /* --- Header & Navegación --- */
         header {
             background-color: var(--primario);
             color: var(--blanco);
-            padding: 1rem 0;
+            padding: 1.5rem 0;
             text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            border-bottom: 2px solid var(--secundario);
         }
 
         .logo h1 {
             margin: 0;
-            letter-spacing: 3px;
-            font-weight: 300;
-            color: var(--secundario);
+            letter-spacing: 5px;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
-        /* --- Hero Section (Propuesta de Valor) --- */
         .hero {
             background-color: var(--primario);
             color: var(--blanco);
-            padding: 60px 20px;
+            padding: 50px 20px;
             text-align: center;
-            border-bottom: 4px solid var(--secundario);
         }
 
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 20px;
-        }
-
-        .confianza-badge {
+        .hero h2 { font-size: 2rem; margin-bottom: 10px; }
+        
+        .badge-local {
             display: inline-block;
-            background: var(--secundario);
-            color: var(--primario);
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: bold;
-            margin-top: 15px;
+            border: 1px solid var(--secundario);
+            color: var(--secundario);
+            padding: 5px 15px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* --- Grid de Productos --- */
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 40px auto;
             padding: 0 20px;
         }
 
         .categoria-titulo {
-            border-left: 5px solid var(--secundario);
-            padding-left: 15px;
-            margin: 40px 0 20px;
+            font-weight: 300;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 50px 0 25px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
         }
 
         .productos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            gap: 25px;
         }
 
         .producto-card {
             background: var(--blanco);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+            transition: 0.3s;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .producto-card:hover {
-            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        .img-placeholder {
+        .producto-card img {
             width: 100%;
-            height: 300px;
-            background-color: #e0e0e0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-style: italic;
+            height: 320px;
+            object-fit: contain;
+            background-color: #fff;
+            padding: 10px;
         }
 
         .info {
             padding: 20px;
+            text-align: center;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
 
-        .info h3 {
-            margin: 0 0 10px;
-            color: var(--primario);
-        }
-
-        .info p {
-            font-size: 0.9rem;
-            color: #666;
-            flex-grow: 1;
-        }
-
-        .tag-resistencia {
-            font-size: 0.75rem;
-            background: #eee;
-            padding: 3px 8px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
+        .info h3 { margin: 10px 0; font-size: 1.1rem; text-transform: uppercase; }
+        .info p { font-size: 0.85rem; color: #666; margin-bottom: 15px; }
 
         .btn-comprar {
-            display: block;
+            display: inline-block;
             background-color: var(--primario);
             color: var(--blanco);
             text-align: center;
-            padding: 12px;
+            padding: 12px 20px;
             text-decoration: none;
-            margin-top: 15px;
-            border-radius: 4px;
+            font-size: 0.85rem;
             font-weight: bold;
-            transition: background 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
         }
 
         .btn-comprar:hover {
@@ -161,45 +131,33 @@
             color: var(--primario);
         }
 
-        /* --- Sección Cero Riesgo --- */
-        .cero-riesgo {
+        .seccion-paysandu {
             background-color: #fff;
-            padding: 50px 20px;
-            margin-top: 50px;
+            padding: 60px 20px;
+            margin-top: 60px;
+            border-top: 1px solid #eee;
             text-align: center;
         }
 
-        .pasos {
+        .beneficios-locales {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            gap: 40px;
+            flex-wrap: wrap;
             margin-top: 30px;
         }
 
-        .paso {
-            flex: 1;
-            min-width: 200px;
-            max-width: 250px;
-            padding: 20px;
-        }
-
-        .paso i {
-            font-size: 2.5rem;
-            color: var(--secundario);
-            margin-bottom: 15px;
-        }
+        .beneficio-item { max-width: 300px; }
+        .beneficio-item i { color: var(--secundario); font-size: 2rem; margin-bottom: 15px; }
+        .beneficio-item h4 { margin: 10px 0; font-size: 1.1rem; }
+        .beneficio-item p { font-size: 0.9rem; color: #555; }
 
         footer {
-            background-color: var(--primario);
-            color: #888;
+            background: var(--primario);
+            color: #666;
+            padding: 40px;
             text-align: center;
-            padding: 40px 0;
-            margin-top: 50px;
-        }
-
-        @media (max-width: 768px) {
-            .hero h2 { font-size: 1.8rem; }
+            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -207,126 +165,116 @@
 
     <header>
         <div class="logo">
-            <h1>HORA CERO</h1>
+            <h1>Hora Cero</h1>
         </div>
     </header>
 
     <section class="hero">
-        <h2>El reloj que buscás, sin vueltas.</h2>
-        <p>Recibilo en cualquier parte de Uruguay. Revisalo tranquilo. Si te gusta, lo pagás. Si no, lo devolvés sin costo.</p>
-        <div class="confianza-badge">
-            <i class="fas fa-shield-alt"></i> COMPRA 100% SEGURA - PAGO CONTRA ENTREGA
-        </div>
+        <h2>Catálogo Exclusivo</h2>
+        <p>Relojería de precisión con envío a todo el país.</p>
+        <div class="badge-local">Paysandú - Uruguay</div>
     </section>
 
     <div class="container">
         
-        <h2 class="categoria-titulo">Clásicos & Elegantes</h2>
+        <h2 class="categoria-titulo">Colección Destacada</h2>
         <div class="productos-grid">
+            
             <div class="producto-card">
-                <div class="img-placeholder">[ Imagen: Timex Minimalista Negro ]</div>
+                <img src="https://i.ibb.co/4nkpvZrY/1001093896.jpg" alt="Timex Heritage">
                 <div class="info">
-                    <span class="tag-resistencia">Elegancia Minimalista</span>
                     <h3>Timex Heritage Roman</h3>
-                    <p>Caja plateada pulida y esfera negra profunda con números romanos. El equilibrio perfecto entre sobriedad y distinción para el día a día o eventos formales.</p>
-                    <a href="#" class="btn-comprar">Lo quiero - Ver en casa</a>
+                    <p>Minimalismo elegante. Esfera negra profunda con números romanos plateados.</p>
+                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
                 </div>
             </div>
 
             <div class="producto-card">
-                <div class="img-placeholder">[ Imagen: Casio Analógico Blanco ]</div>
+                <img src="https://i.ibb.co/1GgfGb2K/1001093894.jpg" alt="Casio Analógico">
                 <div class="info">
-                    <span class="tag-resistencia">Clásico Indispensable</span>
                     <h3>Casio Date Display</h3>
-                    <p>Diseño tradicional con esfera blanca nítida, números romanos y calendario doble (día/fecha). Correa de cuero negro con textura croco.</p>
-                    <a href="#" class="btn-comprar">Lo quiero - Ver en casa</a>
+                    <p>El clásico con calendario doble y esfera blanca de alta legibilidad.</p>
+                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
                 </div>
             </div>
 
             <div class="producto-card">
-                <div class="img-placeholder">[ Imagen: Casio Vintage Plateado ]</div>
+                <img src="https://i.ibb.co/Pvzn5hDW/1001093901.jpg" alt="Casio Quartz">
                 <div class="info">
-                    <span class="tag-resistencia">Retro Style</span>
+                    <h3>Casio Sport Orange</h3>
+                    <p>Diseño táctico con detalles en naranja para una lectura rápida y deportiva.</p>
+                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
+                </div>
+            </div>
+
+            <div class="producto-card">
+                <img src="https://i.ibb.co/NnZ0xKKm/1001093907.jpg" alt="Casio Vintage">
+                <div class="info">
                     <h3>Casio Vintage Illuminator</h3>
-                    <p>El ícono de los 80 vuelto a nacer. Acero inoxidable, luz azul, cronómetro y alarma. Un toque retro que combina con todo.</p>
-                    <a href="#" class="btn-comprar">Lo quiero - Ver en casa</a>
+                    <p>El ícono retro de acero. Estilo atemporal con luz azul y cronómetro.</p>
+                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
                 </div>
             </div>
-        </div>
 
-        <h2 class="categoria-titulo">Aventura & Tecnología</h2>
-        <div class="productos-grid">
             <div class="producto-card">
-                <div class="img-placeholder">[ Imagen: Timex Expedition Solar ]</div>
+                <img src="https://i.ibb.co/R4SHSZS8/1001093909.jpg" alt="Timex Solar">
                 <div class="info">
-                    <span class="tag-resistencia">Carga Solar - Sin Pilas</span>
                     <h3>Timex Expedition Solar</h3>
-                    <p>Se carga con cualquier fuente de luz. Autonomía total, diseño robusto tipo buzo y correa de cuero reforzada. Para el hombre que no quiere complicaciones.</p>
-                    <a href="#" class="btn-comprar">Lo quiero - Ver en casa</a>
+                    <p>Tecnología de carga por luz. Robusto, ecológico y sin necesidad de pilas.</p>
+                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
                 </div>
             </div>
 
             <div class="producto-card">
-                <div class="img-placeholder">[ Imagen: Casio Royale ]</div>
+                <img src="https://i.ibb.co/VW3tPYSh/1001093911.jpg" alt="Timex Field">
                 <div class="info">
-                    <span class="tag-resistencia">10 Años de Batería</span>
-                    <h3>Casio World Time "Royale"</h3>
-                    <p>Mapa mundial, 31 zonas horarias y 5 alarmas. El reloj definitivo para el viajero o el amante de la tecnología. Resistente 100m.</p>
-                    <a href="#" class="btn-comprar">Lo quiero - Ver en casa</a>
+                    <h3>Timex Field Indiglo</h3>
+                    <p>Estilo militar clásico con iluminación Indiglo para ver en total oscuridad.</p>
+                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
                 </div>
             </div>
 
             <div class="producto-card">
-                <div class="img-placeholder">[ Imagen: Timex Field ]</div>
+                <img src="https://i.ibb.co/PvXwhsGs/1001093905.jpg" alt="Casio Royale">
                 <div class="info">
-                    <span class="tag-resistencia">Luz Indiglo®</span>
-                    <h3>Timex Expedition Field</h3>
-                    <p>Estilo militar con excelente legibilidad nocturna gracias a su luz Indiglo. Resistente, rudo y listo para cualquier terreno.</p>
-                    <a href="#" class="btn-comprar">Lo quiero - Ver en casa</a>
+                    <h3>Casio World Time</h3>
+                    <p>31 zonas horarias y batería de 10 años. El reloj del viajero incansable.</p>
+                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
                 </div>
             </div>
-        </div>
 
-        <h2 class="categoria-titulo">Resistencia Extrema</h2>
-        <div class="productos-grid">
-            <div class="producto-card" style="max-width: 400px; margin: auto;">
-                <div class="img-placeholder">[ Imagen: G-SHOCK Original ]</div>
+            <div class="producto-card">
+                <img src="https://i.ibb.co/YFDhHnc2/1001093903.jpg" alt="G-SHOCK">
                 <div class="info">
-                    <span class="tag-resistencia">Resistente a Impactos / 200M Water Resist</span>
-                    <h3>Casio G-SHOCK DW-5600</h3>
-                    <p>El estándar mundial de dureza. Construcción a prueba de todo, diseño cuadrado original. Si buscás un reloj para toda la vida, es este.</p>
-                    <a href="#" class="btn-comprar">Lo quiero - Ver en casa</a>
+                    <h3>G-SHOCK Original</h3>
+                    <p>Resistencia extrema a impactos y agua 200m. Prácticamente indestructible.</p>
+                    <a href="https://wa.me/TU_NUMERO" class="btn-comprar">Lo quiero tener</a>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
 
-    <section class="cero-riesgo">
-        <h2>¿Cómo funciona "Cero Riesgo" de Hora Cero?</h2>
-        <p>Tu confianza es nuestro motor. Comprá en Paysandú y recibí en todo Uruguay con total tranquilidad.</p>
-        <div class="pasos">
-            <div class="paso">
-                <i class="fas fa-mouse-pointer"></i>
-                <h4>1. Elegís</h4>
-                <p>Seleccionás el modelo que más te guste de nuestro catálogo.</p>
+    <section class="seccion-paysandu">
+        <h3>Servicio Exclusivo en Paysandú Ciudad</h3>
+        <p>Priorizamos la confianza de nuestros vecinos.</p>
+        <div class="beneficios-locales">
+            <div class="beneficio-item">
+                <i class="fas fa-eye"></i>
+                <h4>Garantía de Satisfacción</h4>
+                <p>Te lo llevamos a tu domicilio. Lo revisás, te lo probás y si no es lo que buscabas, lo devolvés sin costo.</p>
             </div>
-            <div class="paso">
-                <i class="fas fa-truck-moving"></i>
-                <h4>2. Recibís</h4>
-                <p>Te lo enviamos rápido. Lo tenés en la mano antes de soltar un peso.</p>
-            </div>
-            <div class="paso">
-                <i class="fas fa-hand-holding-usd"></i>
-                <h4>3. Pagás</h4>
-                <p>¿Es lo que esperabas? Lo pagás al recibir. ¿No te convenció? Lo devolvés ahí mismo.</p>
+            <div class="beneficio-item">
+                <i class="fas fa-bolt"></i>
+                <h4>Entrega en el Día</h4>
+                <p>Comprás hoy, lo tenés hoy. Sin esperas ni trámites largos.</p>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Hora Cero - Paysandú, Uruguay.</p>
-        <p><small>Martínez & Martínez Marketing Digital</small></p>
+        <p>&copy; 2026 HORA CERO - Paysandú, Uruguay</p>
+        <p>Desarrollado por Martínez & Martínez Marketing Digital</p>
     </footer>
 
 </body>

@@ -45,7 +45,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
         }
 
         .tarjeta-seccion:hover {
@@ -67,25 +66,24 @@
             object-fit: cover;
         }
 
-        /* Ajuste específico para cuando usas enlaces de ImgBB directo */
         .placeholder-text {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.9rem;
             text-align: center;
             pointer-events: none;
+            width: 80%;
         }
 
         .info-seccion {
             padding: 20px;
             text-align: center;
-            background: #fff;
         }
 
         .info-seccion h2 {
@@ -99,7 +97,7 @@
             font-size: 0.9rem;
         }
 
-        /* --- PÁGINAS EMERGENTES (MODALES INTERNOS) --- */
+        /* --- PÁGINAS EMERGENTES (VENTANAS MODALES) --- */
         .overlay-emergente {
             position: fixed;
             top: 0;
@@ -112,13 +110,14 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            /* Oculto por defecto */
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
         }
 
-        /* Al llamarse mediante el ID (Ancla CSS), se activa la vista */
-        .overlay-emergente:target {
+        /* Clase activa que se pondrá con JavaScript */
+        .overlay-emergente.activo {
             opacity: 1;
             pointer-events: auto;
         }
@@ -127,4 +126,260 @@
             background: white;
             width: 90%;
             max-width: 1000px;
-            height: 80vh
+            height: 80vh;
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(30px);
+            transition: transform 0.3s ease;
+        }
+
+        .overlay-emergente.activo .ventana-articulos {
+            transform: translateY(0);
+        }
+
+        .btn-cerrar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2.5rem;
+            background: none;
+            border: none;
+            color: #95a5a6;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .btn-cerrar:hover {
+            color: #e74c3c;
+        }
+
+        .ventana-articulos h2 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+
+        .enlace-original {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .enlace-original:hover {
+            text-decoration: underline;
+        }
+
+        /* Contenedor con scroll para los artículos muestra */
+        .lista-articulos {
+            overflow-y: auto;
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding-right: 5px;
+        }
+
+        /* Artículos individuales */
+        .articulo-muestra {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .articulo-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            background-color: #bdc3c7;
+        }
+
+        .articulo-info {
+            padding: 12px;
+        }
+
+        .articulo-info h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: #34495e;
+        }
+
+        .articulo-info p {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Mi Catálogo de Secciones</h1>
+
+        <!-- ==========================================
+             GRILLA PRINCIPAL CON LAS 4 CARÁTULAS
+             ========================================== -->
+        <div class="grid-secciones">
+            
+            <!-- SECCIÓN 1 -->
+            <div class="tarjeta-seccion" onclick="abrirModal('seccion1')">
+                <div class="caratula-wrapper">
+                    <img class="caratula-img" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Carátula 1">
+                    <div class="placeholder-text">Carátula: Enlace ImgBB 1</div>
+                </div>
+                <div class="info-seccion">
+                    <h2>Sección Uno</h2>
+                    <p>Toca para ver los artículos</p>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2 -->
+            <div class="tarjeta-seccion" onclick="abrirModal('seccion2')">
+                <div class="caratula-wrapper">
+                    <img class="caratula-img" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=400&q=80" alt="Carátula 2">
+                    <div class="placeholder-text">Carátula: Enlace ImgBB 2</div>
+                </div>
+                <div class="info-seccion">
+                    <h2>Sección Dos</h2>
+                    <p>Toca para ver los artículos</p>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3 -->
+            <div class="tarjeta-seccion" onclick="abrirModal('seccion3')">
+                <div class="caratula-wrapper">
+                    <img class="caratula-img" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=400&q=80" alt="Carátula 3">
+                    <div class="placeholder-text">Carátula: Enlace ImgBB 3</div>
+                </div>
+                <div class="info-seccion">
+                    <h2>Sección Tres</h2>
+                    <p>Toca para ver los artículos</p>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 4 -->
+            <div class="tarjeta-seccion" onclick="abrirModal('seccion4')">
+                <div class="caratula-wrapper">
+                    <img class="caratula-img" src="https://images.unsplash.com/photo-1472214222541-d510753a8707?auto=format&fit=crop&w=400&q=80" alt="Carátula 4">
+                    <div class="placeholder-text">Carátula: Enlace ImgBB 4</div>
+                </div>
+                <div class="info-seccion">
+                    <h2>Sección Cuatro</h2>
+                    <p>Toca para ver los artículos</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ==========================================
+         PÁGINAS EMERGENTES (VENTANAS MODALES)
+         ========================================== -->
+
+    <!-- EMERGENTE SECCIÓN 1 -->
+    <div id="seccion1" class="overlay-emergente">
+        <div class="ventana-articulos">
+            <button class="btn-cerrar" onclick="cerrarModal('seccion1')">&times;</button>
+            <h2>Artículos de la Sección Uno</h2>
+            <a href="https://ibb.co/1fhgRSZT" target="_blank" class="enlace-original">Ver foto original de ImgBB ↗</a>
+            
+            <div class="lista-articulos">
+                <div class="articulo-muestra">
+                    <img class="articulo-img" src="https://picsum.photos/300/200?random=1" alt="Articulo">
+                    <div class="articulo-info"><h4>Artículo 1 - Muestra A</h4><p>Precio, talle o descripción corta aquí.</p></div>
+                </div>
+                <div class="articulo-muestra">
+                    <img class="articulo-img" src="https://picsum.photos/300/200?random=2" alt="Articulo">
+                    <div class="articulo-info"><h4>Artículo 1 - Muestra B</h4><p>Precio, talle o descripción corta aquí.</p></div>
+                </div>
+                <div class="articulo-muestra">
+                    <img class="articulo-img" src="https://picsum.photos/300/200?random=3" alt="Articulo">
+                    <div class="articulo-info"><h4>Artículo 1 - Muestra C</h4><p>Precio, talle o descripción corta aquí.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EMERGENTE SECCIÓN 2 -->
+    <div id="seccion2" class="overlay-emergente">
+        <div class="ventana-articulos">
+            <button class="btn-cerrar" onclick="cerrarModal('seccion2')">&times;</button>
+            <h2>Artículos de la Sección Dos</h2>
+            <a href="https://ibb.co/BHRjNspq" target="_blank" class="enlace-original">Ver foto original de ImgBB ↗</a>
+            
+            <div class="lista-articulos">
+                <div class="articulo-muestra">
+                    <img class="articulo-img" src="https://picsum.photos/300/200?random=4" alt="Articulo">
+                    <div class="articulo-info"><h4>Artículo 2 - Muestra A</h4><p>Precio, talle o descripción corta aquí.</p></div>
+                </div>
+                <div class="articulo-muestra">
+                    <img class="articulo-img" src="https://picsum.photos/300/200?random=5" alt="Articulo">
+                    <div class="articulo-info"><h4>Artículo 2 - Muestra B</h4><p>Precio, talle o descripción corta aquí.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EMERGENTE SECCIÓN 3 -->
+    <div id="seccion3" class="overlay-emergente">
+        <div class="ventana-articulos">
+            <button class="btn-cerrar" onclick="cerrarModal('seccion3')">&times;</button>
+            <h2>Artículos de la Sección Tres</h2>
+            <a href="https://ibb.co/vCdmqd4H" target="_blank" class="enlace-original">Ver foto original de ImgBB ↗</a>
+            
+            <div class="lista-articulos">
+                <div class="articulo-muestra">
+                    <img class="articulo-img" src="https://picsum.photos/300/200?random=6" alt="Articulo">
+                    <div class="articulo-info"><h4>Artículo 3 - Muestra A</h4><p>Precio, talle o descripción corta aquí.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EMERGENTE SECCIÓN 4 -->
+    <div id="seccion4" class="overlay-emergente">
+        <div class="ventana-articulos">
+            <button class="btn-cerrar" onclick="cerrarModal('seccion4')">&times;</button>
+            <h2>Artículos de la Sección Cuatro</h2>
+            <a href="https://ibb.co/605r5Vp8" target="_blank" class="enlace-original">Ver foto original de ImgBB ↗</a>
+            
+            <div class="lista-articulos">
+                <div class="articulo-muestra">
+                    <img class="articulo-img" src="https://picsum.photos/300/200?random=7" alt="Articulo">
+                    <div class="articulo-info"><h4>Artículo 4 - Muestra A</h4><p>Precio, talle o descripción corta aquí.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         CÓDIGO JAVASCRIPT (Control de Ventanas)
+         ========================================== -->
+    <script>
+        // Función para abrir la ventana de artículos de la sección tocada
+        function abrirModal(idSeccion) {
+            document.getElementById(idSeccion).classList.add('activo');
+        }
+
+        // Función para cerrar la ventana
+        function cerrarModal(idSeccion) {
+            document.getElementById(idSeccion).classList.remove('activo');
+        }
+
+        // Cerrar también si hacen clic afuera de la caja blanca
+        window.onclick = function(event) {
+            if (event.target.classList.contains('overlay-emergente')) {
+                event.target.classList.remove('activo');
+            }
+        }
+    </script>
+
+</body>
+    </html>

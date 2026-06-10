@@ -1,172 +1,430 @@
-<!-- ================================================================= -->
-<!-- 1. CONTENEDORES VISUALES (HTML)                                  -->
-<!-- Colocá esto justo debajo de tu menú de categorías/pestañas       -->
-<!-- ================================================================= -->
-<div id="cat-conjuntos" class="category-content active"></div>
-<div id="cat-bombachas" class="category-content"></div>
-<div id="cat-soutienes" class="category-content"></div>
-<div id="cat-medias" class="category-content"></div>
-<div id="cat-dormir" class="category-content"></div>
-
-<!-- ================================================================= -->
-<!-- 2. LÓGICA EN SEGUNDO PLANO (JAVASCRIPT)                          -->
-<!-- El navegador leerá esto internamente para renderizar las prendas -->
-<!-- ================================================================= -->
-<script>
-// CONFIGURACIÓN DE TU BASE DE DATOS REMOTA (JSONBIN.IO)
-const BIN_ID = "6a28d3aff5f4af5e29d5ae82"; 
-const JSON_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
-const MASTER_KEY = "$2a$10$qiyVtGY2eFG68QFFYJo2/.me5EmiyQdWsnrAHrXL5UZaXuSJKrwpW"; 
-
-// NÚMERO DE TELÉFONO DE NÜMIA
-const WHATSAPP_PHONE = "59898808548"; 
-
-let catalogData = {};
-let cart = [];
-
-// Función para conectar y descargar los productos en tiempo real desde internet
-async function loadCatalogFromRemote() {
-    try {
-        const response = await fetch(JSON_URL, {
-            method: 'GET',
-            headers: {
-                'X-Master-Key': MASTER_KEY,
-                'X-Bin-Meta': 'false'
-            }
-        });
-        
-        if (!response.ok) {
-            throw new Error("No se pudo conectar con JsonBin. Revisá la Master Key.");
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Fábrica de las Milanesas</title>
+    <style>
+        * {
+            box-shadow: none;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
 
-        catalogData = await response.json();
-        renderCatalog();
-        
-    } catch (error) {
-        console.error("Error al cargar el catálogo:", error);
-    }
-}
+        body {
+            background-color: #121212;
+            color: #eeeeee;
+            padding-bottom: 100px;
+        }
 
-// Dibuja las tarjetas de producto dinámicamente dentro de los contenedores HTML
-function renderCatalog() {
-    for (const [category, products] of Object.entries(catalogData)) {
-        const container = document.getElementById(`cat-${category}`);
-        if (!container) continue;
+        header {
+            background: linear-gradient(180deg, #1a1a1a 0%, #111111 100%);
+            padding: 25px 15px;
+            text-align: center;
+            border-bottom: 3px solid #ff9f43;
+        }
+
+        header h1 {
+            font-size: 26px;
+            color: #ff9f43;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 14px;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        /* Categorías Desplazables Horizontalmente (Ideal para celular) */
+        .categories-container {
+            position: sticky;
+            top: 0;
+            background-color: #111;
+            padding: 10px 0;
+            z-index: 10;
+            overflow-x: auto;
+            white-space: nowrap;
+            border-bottom: 1px solid #222;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .categories-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-btn {
+            display: inline-block;
+            background: #222;
+            color: #aaa;
+            padding: 10px 18px;
+            margin: 0 5px;
+            border-radius: 20px;
+            border: 1px solid #333;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .category-btn.active {
+            background: #ff9f43;
+            color: #111;
+            border-color: #ff9f43;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .products-section {
+            display: none;
+        }
+
+        .products-section.active {
+            display: block;
+        }
+
+        .product-card {
+            background: #1e1e1e;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 1px solid #2a2a2a;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 180px;
+            background-color: #2d2d2d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+            font-size: 13px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 19px;
+            color: #ff9f43;
+            font-weight: bold;
+        }
+
+        .btn-add {
+            background-color: #ff9f43;
+            color: #111;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-add:active {
+            background-color: #f39c12;
+        }
+
+        /* Barra Inferior Fija del Carrito */
+        .cart-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #1a1a1a;
+            border-top: 3px solid #25d366;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+        }
+
+        .cart-summary {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-count {
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        .cart-total {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .btn-whatsapp {
+            background-color: #25d366;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 15px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+        }
+
+        .btn-whatsapp.disabled {
+            background-color: #444;
+            color: #777;
+            pointer-events: none;
+            box-shadow: none;
+        }
+
+        .toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #25d366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 1000;
+        }
+        .toast.show { opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>La Fábrica de las Milanesas</h1>
+        <p>Armá tu carrito y mandanos el pedido directo a WhatsApp</p>
+    </header>
+
+    <div class="toast" id="toast">¡Agregado al pedido!</div>
+
+    <!-- Menú de Categorías -->
+    <div class="categories-container">
+        <button class="category-btn active" onclick="switchCategory('carne')">Milanesas de Carne</button>
+        <button class="category-btn" onclick="switchCategory('pollo')">Milanesas de Pollo</button>
+        <button class="category-btn" onclick="switchCategory('supremas')">Supremas Rellenas</button>
+        <button class="category-btn" onclick="switchCategory('guarniciones')">Guarniciones</button>
+        <button class="category-btn" onclick="switchCategory('bebidas')">Bebidas y Postres</button>
+    </div>
+
+    <div class="container">
         
-        let html = "";
-        products.forEach(p => {
-            html += `
-                <div class="product-card">
-                    <div class="product-image" style="background-image: url('${p.img}');"></div>
-                    <div class="product-info">
-                        <div class="product-title">${p.name}</div>
-                        <div class="product-desc">${p.desc}</div>
-                        <div class="product-meta">
-                            <div class="product-price">$ ${p.price}</div>
-                            <button class="btn-add" onclick="addToCart('${p.name}', ${p.price})">Agregar</button>
+        <!-- SECCIÓN 1: CARNE -->
+        <div id="cat-carne" class="products-section active"></div>
+
+        <!-- SECCIÓN 2: POLLO -->
+        <div id="cat-pollo" class="products-section"></div>
+
+        <!-- SECCIÓN 3: SUPREMAS -->
+        <div id="cat-supremas" class="products-section"></div>
+
+        <!-- SECCIÓN 4: GUARNICIONES -->
+        <div id="cat-guarniciones" class="products-section"></div>
+
+        <!-- SECCIÓN 5: BEBIDAS -->
+        <div id="cat-bebidas" class="products-section"></div>
+
+    </div>
+
+    <!-- Barra de Carrito Fijo Inferior -->
+    <div class="cart-bar">
+        <div class="cart-summary">
+            <span class="cart-count" id="cart-count">0 artículos</span>
+            <span class="cart-total" id="cart-total">Total: $0</span>
+        </div>
+        <a href="#" id="whatsapp-link" class="btn-whatsapp disabled" target="_blank" onclick="sendOrder(event)">
+            Confirmar Pedido
+        </a>
+    </div>
+
+    <script>
+        // Cambiá este número por tu WhatsApp real (Formato: código de país + número sin el 0)
+        const WHATSAPP_PHONE = "59899000000"; 
+
+        // Base de datos de muestra: 5 categorías x 10 artículos
+        const catalogData = {
+            carne: [
+                { id: "c1", name: "Milanesa Al Pan Clásica", desc: "Lechuga, tomate y mayonesa.", price: 290, img: "imagenes/carne_1.jpg" },
+                { id: "c2", name: "Milanesa Al Pan Completa", desc: "Huevo frito, jamón, queso, lechuga y tomate.", price: 360, img: "imagenes/carne_2.jpg" },
+                { id: "c3", name: "Milanesa Napolitana con Fritas", desc: "Salsa de tomate, jamón y muzzarella derretida.", price: 480, img: "imagenes/carne_3.jpg" },
+                { id: "c4", name: "Milanesa Fugazzeta", desc: "Mucha muzzarella y cebolla dorada al oreganato.", price: 460, img: "imagenes/carne_4.jpg" },
+                { id: "c5", name: "Milanesa a la Suiza", desc: "Salsa blanca cremosa, gratina con queso parmesano.", price: 490, img: "imagenes/carne_5.jpg" },
+                { id: "c6", name: "Milanesa Tres Quesos", desc: "Muzzarella, roquefort y dambo fundidos.", price: 510, img: "imagenes/carne_6.jpg" },
+                { id: "c7", name: "Milanesa Criolla", desc: "Con dos huevos fritos arriba y panceta crocante.", price: 470, img: "imagenes/carne_7.jpg" },
+                { id: "c8", name: "Milanesa Barbacoa Bacon", desc: "Bañada en barbacoa, cheddar y lluvia de panceta.", price: 495, img: "imagenes/carne_8.jpg" },
+                { id: "c9", name: "Milanesa de la Casa", desc: "Base de carne XL, morrones asados, aceitunas y huevo.", price: 530, img: "imagenes/carne_9.jpg" },
+                { id: "c10", name: "Milanesa Simple Sola", desc: "Ideal para compartir o armar a tu gusto.", price: 240, img: "imagenes/carne_10.jpg" }
+            ],
+            pollo: [
+                { id: "p1", name: "Milanesa de Pollo Simple", desc: "Pechuga tierna rebozada clásica.", price: 230, img: "imagenes/pollo_1.jpg" },
+                { id: "p2", name: "Milanesa Pollo Al Pan Completa", desc: "Jamón, queso, huevo, lechuga y tomate.", price: 340, img: "imagenes/pollo_2.jpg" },
+                { id: "p3", name: "Milanesa Pollo Napolitana", desc: "Salsa, jamón y muzzarella fundida.", price: 450, img: "imagenes/pollo_3.jpg" },
+                { id: "p4", name: "Milanesa Pollo al Verdeo", desc: "Salsa crema de leche con cebollita de verdeo.", price: 480, img: "imagenes/pollo_4.jpg" },
+                { id: "p5", name: "Milanesa Pollo Caprese", desc: "Muzzarella, rodajas de tomate fresco y albahaca.", price: 430, img: "imagenes/pollo_5.jpg" },
+                { id: "p6", name: "Milanesa Pollo Cheddar", desc: "Queso cheddar fundido y cebolla crispy.", price: 465, img: "imagenes/pollo_6.jpg" },
+                { id: "p7", name: "Milanesa Pollo con Champiñones", desc: "Crema intensa con champiñones fileteados.", price: 490, img: "imagenes/pollo_7.jpg" },
+                { id: "p8", name: "Milanesa Pollo Club Social", desc: "Con palta, tomate y aderezo especial de la casa.", price: 460, img: "imagenes/pollo_8.jpg" },
+                { id: "p9", name: "Milanesa Pollo Tex-Mex", desc: "Salsa ligeramente picante, maíz, porotos y queso.", price: 470, img: "imagenes/pollo_9.jpg" },
+                { id: "p10", name: "Nuggets de Pollo Caseros (x10)", desc: "Acompañados de salsa barbacoa o alioli.", price: 280, img: "imagenes/pollo_10.jpg" }
+            ],
+            supremas: [
+                { id: "s1", name: "Suprema Rellena J&Q", desc: "Rellena de abundante jamón y queso dambo.", price: 420, img: "imagenes/suprema_1.jpg" },
+                { id: "s2", name: "Suprema Rellena de la Huerta", desc: "Espinacas a la crema, muzzarella y nuez moscada.", price: 440, img: "imagenes/suprema_2.jpg" },
+                { id: "s3", name: "Suprema Rellena Americana", desc: "Queso cheddar, panceta ahumada y cebolla caramelizada.", price: 460, img: "imagenes/suprema_3.jpg" },
+                { id: "s4", name: "Suprema Rellena Blue", desc: "Queso azul (roquefort) y apio picado fino.", price: 470, img: "imagenes/suprema_4.jpg" },
+                { id: "s5", name: "Suprema Caprese Rellena", desc: "Tomates secos, muzzarella e hilos de pesto.", price: 450, img: "imagenes/suprema_5.jpg" },
+                { id: "s6", name: "Suprema Rellena con Ahumados", desc: "Queso provolone y bondiola ahumada.", price: 480, img: "imagenes/suprema_6.jpg" },
+                { id: "s7", name: "Suprema Bombón", desc: "Rellena de crema de maíz dulce (choclo) y queso.", price: 430, img: "imagenes/suprema_7.jpg" },
+                { id: "s8", name: "Suprema Rellena Picante", desc: "Salame, muzzarella y rodajas de jalapeño.", price: 460, img: "imagenes/suprema_8.jpg" },
+                { id: "s9", name: "Suprema Rellena Premium", desc: "Pápatas, champiñones, muzzarella y finas hierbas.", price: 490, img: "imagenes/suprema_9.jpg" },
+                { id: "s10", name: "Suprema Rellena Light", desc: "Queso magro, ricota y tiritas de morrón verde.", price: 410, img: "imagenes/suprema_10.jpg" }
+            ],
+            guarniciones: [
+                { id: "g1", name: "Papas Fritas Tradicionales", desc: "Porción abundante, crocantes y doradas.", price: 160, img: "imagenes/guarnicion_1.jpg" },
+                { id: "g2", name: "Papas Fritas con Cheddar & Bacon", desc: "Bañadas en salsa cheddar y panceta picada.", price: 240, img: "imagenes/guarnicion_2.jpg" },
+                { id: "g3", name: "Pure de Papas Casero", desc: "Bien cremoso, hecho con manteca y leche.", price: 140, img: "imagenes/guarnicion_3.jpg" },
+                { id: "g4", name: "Pure de Calabaza", desc: "Suave, dulce y sazonado al toque del chef.", price: 140, img: "imagenes/guarnicion_4.jpg" },
+                { id: "g5", name: "Ensalada Mixta Básica", desc: "Lechuga, tomate y cebolla.", price: 130, img: "imagenes/guarnicion_5.jpg" },
+                { id: "g6", name: "Ensalada Rusa", desc: "Papa, zanahoria, arvejas y mucha mayonesa.", price: 170, img: "imagenes/guarnicion_6.jpg" },
+                { id: "g7", name: "Ensalada Completa Huerta", desc: "Rúcula, zanahoria rallada, huevo duro y choclo.", price: 180, img: "imagenes/guarnicion_7.jpg" },
+                { id: "g8", name: "Papas Rústicas al Horno", desc: "Con cáscara, romero, oliva y pimentón dulce.", price: 175, img: "imagenes/guarnicion_8.jpg" },
+                { id: "g9", name: "Aros de Cebolla Crujientes", desc: "Porción ideal para picar antes de la mila.", price: 190, img: "imagenes/guarnicion_9.jpg" },
+                { id: "g10", name: "Huevo Frito Extra (x2)", desc: "Dos unidades al punto justo para sumar a tu plato.", price: 60, img: "imagenes/guarnicion_10.jpg" }
+            ],
+            bebidas: [
+                { id: "b1", name: "Refresco 600ml", desc: "Línea Coca Cola o Pepsi según stock.", price: 110, img: "imagenes/bebida_1.jpg" },
+                { id: "b2", name: "Refresco de 1.5L", desc: "Ideal para los pedidos familiares.", price: 180, img: "imagenes/bebida_2.jpg" },
+                { id: "b3", name: "Agua Mineral 600ml", desc: "Con o sin gas.", price: 90, img: "imagenes/bebida_3.jpg" },
+                { id: "b4", name: "Cerveza Nacional 1L", desc: "Bien helada para acompañar la cena.", price: 220, img: "imagenes/bebida_4.jpg" },
+                { id: "b5", name: "Cerveza Artesanal Lata", desc: "Variedades APA, IPA o Rubia común.", price: 150, img: "imagenes/bebida_5.jpg" },
+                { id: "b6", name: "Flan Casero con Dulce", desc: "Con dulce de leche uruguayo.", price: 130, img: "imagenes/bebida_6.jpg" },
+                { id: "b7", name: "Chajá de Postre", desc: "El clásico postre con merengue y durazno.", price: 160, img: "imagenes/bebida_7.jpg" },
+                { id: "b8", name: "Mousse de Chocolate", desc: "Cremosa, suave y bien chocolatosa.", price: 140, img: "imagenes/bebida_8.jpg" },
+                { id: "b9", name: "Ensalada de Frutas", desc: "Frutas de estación picadas, 100% natural.", price: 130, img: "imagenes/bebida_9.jpg" },
+                { id: "b10", name: "Jugo Natural de Naranja", desc: "Exprimido en el momento (500ml).", price: 140, img: "imagenes/bebida_10.jpg" }
+            ]
+        };
+
+        let cart = [];
+
+        // Generar las tarjetas en la pantalla automáticamente
+        function renderCatalog() {
+            for (const [category, products] of Object.entries(catalogData)) {
+                const container = document.getElementById(`cat-${category}`);
+                let html = "";
+                
+                products.forEach(p => {
+                    html += `
+                        <div class="product-card">
+                            <div class="product-image" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${p.img}');">
+                                📷 [Clic para subir: ${p.img}]
+                            </div>
+                            <div class="product-info">
+                                <div class="product-title">${p.name}</div>
+                                <div class="product-desc">${p.desc}</div>
+                                <div class="product-meta">
+                                    <div class="product-price">$ ${p.price}</div>
+                                    <button class="btn-add" onclick="addToCart('${p.name}', ${p.price})">Agregar</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            `;
-        });
-        container.innerHTML = html;
-    }
-}
-
-// Cambiar de categoría activa al tocar las pestañas
-function switchCategory(category) {
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll('.category-content').forEach(content => content.classList.remove('active'));
-    
-    event.currentTarget.classList.add('active');
-    const targetContent = document.getElementById(`cat-${category}`);
-    if (targetContent) targetContent.classList.add('active');
-}
-
-// Agregar productos seleccionados al carrito
-function addToCart(name, price) {
-    const existing = cart.find(item => item.name === name);
-    if (existing) {
-        existing.qty++;
-    } else {
-        cart.push({ name, price, qty: 1 });
-    }
-    updateCartUI();
-}
-
-// Modificar cantidades de artículos (+ / -) dentro del carrito
-function updateQty(name, delta) {
-    const item = cart.find(item => item.name === name);
-    if (item) {
-        item.qty += delta;
-        if (item.qty <= 0) {
-            cart = cart.filter(i => i.name !== name);
+                    `;
+                });
+                container.innerHTML = html;
+            }
         }
-    }
-    updateCartUI();
-}
 
-// Actualizar visualmente la lista flotante del carrito y sus sumas totales
-function updateCartUI() {
-    const cartItemsContainer = document.getElementById('cart-items');
-    const cartCount = document.getElementById('cart-count');
-    const cartTotal = document.getElementById('cart-total');
-    
-    let totalItems = 0;
-    let totalPrice = 0;
-    let html = "";
-    
-    cart.forEach(item => {
-        totalItems += item.qty;
-        totalPrice += item.price * item.qty;
-        html += `
-            <div class="cart-item">
-                <div>
-                    <strong>${item.name}</strong><br>
-                    <span style="color:#888;">$ ${item.price} c/u</span>
-                </div>
-                <div class="cart-item-actions">
-                    <button onclick="updateQty('${item.name}', -1)">-</button>
-                    <span>${item.qty}</span>
-                    <button onclick="updateQty('${item.name}', 1)">+</button>
-                </div>
-            </div>
-        `;
-    });
-    
-    cartItemsContainer.innerHTML = html || "<p style='color:#888; text-align:center;'>Tu carrito está vacío.</p>";
-    cartCount.innerText = totalItems;
-    cartTotal.innerText = totalPrice;
-}
+        // Cambiar entre pestañas de categorías
+        function switchCategory(categoryName) {
+            document.querySelectorAll('.product-grid, .products-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.category-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(`cat-${categoryName}`).classList.add('active');
+            event.target.classList.add('active');
+        }
 
-// Abrir o cerrar la pestaña desplegable del carrito
-function toggleCart() {
-    const modal = document.getElementById('cart-modal');
-    modal.classList.toggle('active');
-}
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+            
+            // Mostrar cartelito temporal arriba
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 1200);
+        }
 
-// Procesar el pedido estructurado y redirigir al WhatsApp de la tienda
-function sendOrder() {
-    if (cart.length === 0) {
-        alert("El carrito está vacío.");
-        return;
-    }
-    
-    let message = "Olá NÜMIA! Me gustaría hacer el siguiente pedido:\n\n";
-    let total = 0;
-    
-    cart.forEach(item => {
-        const subtotal = item.price * item.qty;
-        message += `• ${item.qty}x ${item.name} ($${item.price} c/u) = $${subtotal}\n`;
-        total += subtotal;
-    });
-    
-    message += `\n*Total estimado: $${total}*`;
-    
-    const encodedText = encodeURIComponent(message);
-    window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodedText}`, '_blank');
-}
+        function updateCartUI() {
+            const countEl = document.getElementById('cart-count');
+            const totalEl = document.getElementById('cart-total');
+            const wsLink = document.getElementById('whatsapp-link');
 
-// Disparar de forma automática la descarga de artículos remotos al cargar la pestaña
-loadCatalogFromRemote();
-                                                  </script>
+            countEl.innerText = `${cart.length} ${cart.length === 1 ? 'artículo' : 'artículos'}`;
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            totalEl.innerText = `Total: $${total}`;
+
+            if (cart.length > 0) {
+                wsLink.classList.remove('disabled');
+            } else {
+                wsLink.classList.add('disabled');
+            }
+        }
+
+        function sendOrder(e) {
+            if (cart.length === 0) {
+                e.preventDefault();
+                return;
+            }
+
+            let itemCounts = {};
+            cart.forEach(item => itemCounts[item.name] = (itemCounts[item.name] || 0) + 1);
+            let total = cart.reduce((sum, item) => sum + item.price, 0);
+
+            // Construcción del formato del mensaje para WhatsApp
+            let text = "*¡Hola! Me gustaría hacer el siguiente pedido en La Fábrica de las Milanesas:*\\n\\n";
+            for (const [name, qty] of Object.entries(itemCounts)) {
+                text += `• *${qty}x* ${name}\\n`;
+            }
+            text += `\\n Gran Total: *$${total}*\\n\\n_Enviado desde el catálogo web._`;
+
+            document.getElementById('whatsapp-link').href = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
+        }
+
+        // Iniciar catálogo al cargar la página
+        renderCatalog();
+    </script>
+</body>
+</html>

@@ -109,14 +109,11 @@
 
         .product-image {
             width: 100%;
-            height: 240px;
+            height: 280px;
             background-color: #f6f3f9;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #b3a7c7;
-            font-size: 12px;
-            letter-spacing: 1px;
             background-size: cover;
             background-position: center;
             border-bottom: 1px solid #f1eaf7;
@@ -246,6 +243,7 @@
 
     <div class="toast" id="toast">Agregado a tu selección</div>
 
+    <!-- Pestañas de categorías del catálogo -->
     <div class="categories-container">
         <button class="category-btn active" onclick="switchCategory('conjuntos')">Conjuntos</button>
         <button class="category-btn" onclick="switchCategory('bombachas')">Bombachas / Less</button>
@@ -255,6 +253,7 @@
     </div>
 
     <div class="container">
+        <!-- Las secciones se auto-rellenan desde el script -->
         <div id="cat-conjuntos" class="products-section active"></div>
         <div id="cat-bombachas" class="products-section"></div>
         <div id="cat-soutienes" class="products-section"></div>
@@ -262,6 +261,7 @@
         <div id="cat-dormir" class="products-section"></div>
     </div>
 
+    <!-- Barra de pedido fija -->
     <div class="cart-bar">
         <div class="cart-summary">
             <span class="cart-count" id="cart-count">0 prendas</span>
@@ -281,147 +281,64 @@
         // CONFIGURACIÓN DE WHATSAPP (Teléfono de contacto de NÜMIA)
         const WHATSAPP_PHONE = "59898808548"; 
 
-        // Respaldo local con tus 10 productos de muestra por categoría
+        // Respaldo local con imágenes reales de internet (Unsplash) para que NUNCA fallen
         const backupCatalogData = {
             conjuntos: [
-                { id: "co1", name: "Conjunto Encaje con Bralette", desc: "Delicado bralette de encaje con colaless regulable.", price: 790, img: "imagenes/conjunto_1.jpg" },
-                { id: "co2", name: "Conjunto Algodón Sport", desc: "Corpiño deportivo y culotte de algodón premium.", price: 650, img: "imagenes/conjunto_2.jpg" },
-                { id: "co3", name: "Conjunto Raso Romántico", desc: "Detalles de puntilla, tazas armadas soft.", price: 890, img: "imagenes/conjunto_3.jpg" },
-                { id: "co4", name: "Conjunto Tul Transparencias", desc: "Diseño moderno con breteles dobles ajustables.", price: 750, img: "imagenes/conjunto_4.jpg" },
-                { id: "co5", name: "Conjunto Push Up Clásico", desc: "Realce natural con bombacha tiro medio.", price: 820, img: "imagenes/conjunto_5.jpg" },
-                { id: "co6", name: "Conjunto Satén Satinado", desc: "Textura ultra suave ideal para ocasiones especiales.", price: 950, img: "imagenes/conjunto_6.jpg" },
-                { id: "co7", name: "Conjunto Sin Costuras", desc: "Microfibra invisible, no marca nada bajo la ropa.", price: 690, img: "imagenes/conjunto_7.jpg" },
-                { id: "co8", name: "Conjunto Bralette Largo", desc: "Estilo top largo de encaje con less de hilo.", price: 780, img: "imagenes/conjunto_8.jpg" },
-                { id: "co9", name: "Conjunto Sweet Floral", desc: "Estampado delicado con terminaciones de puntilla.", price: 720, img: "imagenes/conjunto_9.jpg" },
-                { id: "co10", name: "Conjunto Sirena Microfibra", desc: "Colores de temporada con taza soft desmontable.", price: 850, img: "imagenes/conjunto_10.jpg" }
+                { id: "co1", name: "Conjunto Encaje con Bralette", desc: "Delicado bralette de encaje con colaless regulable.", price: 790, img: "https://images.unsplash.com/photo-1616952807090-ffb559779fdf?w=600&auto=format&fit=crop&q=80" },
+                { id: "co2", name: "Conjunto Algodón Sport", desc: "Corpiño deportivo y culotte de algodón premium.", price: 650, img: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600&auto=format&fit=crop&q=80" },
+                { id: "co3", name: "Conjunto Raso Romántico", desc: "Detalles de puntilla, tazas armadas soft.", price: 890, img: "https://images.unsplash.com/photo-1615396899839-c99c121888b0?w=600&auto=format&fit=crop&q=80" },
+                { id: "co4", name: "Conjunto Tul Transparencias", desc: "Diseño moderno con breteles dobles ajustables.", price: 750, img: "https://images.unsplash.com/photo-1582533561751-ef6f6ab93a2e?w=600&auto=format&fit=crop&q=80" },
+                { id: "co5", name: "Conjunto Push Up Clásico", desc: "Realce natural con bombacha tiro medio.", price: 820, img: "https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?w=600&auto=format&fit=crop&q=80" },
+                { id: "co6", name: "Conjunto Satén Satinado", desc: "Textura ultra suave ideal para ocasiones especiales.", price: 950, img: "https://images.unsplash.com/photo-1594938374182-f04313f8fb2c?w=600&auto=format&fit=crop&q=80" },
+                { id: "co7", name: "Conjunto Sin Costuras", desc: "Microfibra invisible, no marca nada bajo la ropa.", price: 690, img: "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?w=600&auto=format&fit=crop&q=80" },
+                { id: "co8", name: "Conjunto Bralette Largo", desc: "Estilo top largo de encaje con less de hilo.", price: 780, img: "https://images.unsplash.com/photo-1608748010899-18f300247112?w=600&auto=format&fit=crop&q=80" },
+                { id: "co9", name: "Conjunto Sweet Floral", desc: "Estampado delicado con terminaciones de puntilla.", price: 720, img: "https://images.unsplash.com/photo-1574169208507-84376144848b?w=600&auto=format&fit=crop&q=80" },
+                { id: "co10", name: "Conjunto Sirena Microfibra", desc: "Colores de temporada con taza soft desmontable.", price: 850, img: "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=600&auto=format&fit=crop&q=80" }
             ],
             bombachas: [
-                { id: "bo1", name: "Cola Less de Encaje", desc: "Talles del M al XL. Varios tonos disponibles.", price: 190, img: "imagenes/less_1.jpg" },
-                { id: "bo2", name: "Bikini de Algodón Florcitas", desc: "Estampado clásico calce cómodo para el día.", price: 160, img: "imagenes/less_2.jpg" },
-                { id: "bo3", name: "Cola Less Regulable Hilo", desc: "Breteles elásticos finos adaptables.", price: 180, img: "imagenes/less_3.jpg" },
-                { id: "bo4", name: "Culotte de Algodón y Lycra", desc: "Máximo confort, elástico suave que no aprieta.", price: 210, img: "imagenes/less_4.jpg" },
-                { id: "bo5", name: "Bombacha Tiro Alto Modeladora", desc: "Compresión ligera en abdomen, contorno libre.", price: 290, img: "imagenes/less_5.jpg" },
-                { id: "bo6", name: "Vedetina Clásica Listas", desc: "Pack diario, algodón transpirable de alta calidad.", price: 150, img: "imagenes/less_6.jpg" },
-                { id: "bo7", name: "Pack x3 Less Invisibles", desc: "Corte láser tecnológico, ideales para calzas.", price: 490, img: "imagenes/less_7.jpg" },
-                { id: "bo8", name: "Culotte Less Encaje Total", desc: "Transparencia sexy en la parte posterior.", price: 220, img: "imagenes/less_8.jpg" },
-                { id: "bo9", name: "Bombacha de Algodón con Puntilla", desc: "Borde superior decorado muy tierno.", price: 170, img: "imagenes/less_9.jpg" },
-                { id: "bo10", name: "Bikini Rib Confort", desc: "Textura acanalada de algodón de moda.", price: 195, img: "imagenes/less_10.jpg" }
+                { id: "bo1", name: "Cola Less de Encaje", desc: "Talles del M al XL. Varios tonos disponibles.", price: 190, img: "https://images.unsplash.com/photo-1616952807044-67258380e90c?w=600&auto=format&fit=crop&q=80" },
+                { id: "bo2", name: "Bikini de Algodón Florcitas", desc: "Estampado clásico calce cómodo para el día.", price: 160, img: "https://images.unsplash.com/photo-1508746829417-e6f548d8d6ed?w=600&auto=format&fit=crop&q=80" },
+                { id: "bo3", name: "Cola Less Regulable Hilo", desc: "Breteles elásticos finos adaptables.", price: 180, img: "https://images.unsplash.com/photo-1582132715026-64670014b1c2?w=600&auto=format&fit=crop&q=80" },
+                { id: "bo4", name: "Culotte de Algodón y Lycra", desc: "Máximo confort, elástico suave que no aprieta.", price: 210, img: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=600&auto=format&fit=crop&q=80" },
+                { id: "bo5", name: "Bombacha Tiro Alto Modeladora", desc: "Compresión ligera en abdomen, contorno libre.", price: 290, img: "https://images.unsplash.com/photo-1571945153237-4929e78394a9?w=600&auto=format&fit=crop&q=80" },
+                { id: "bo6", name: "Vedetina Clásica Listas", desc: "Pack diario, algodón transpirable de alta calidad.", price: 150, img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&auto=format&fit=crop&q=80" },
+                { id: "bo7", name: "Pack x3 Less Invisibles", desc: "Corte láser tecnológico, ideales para calzas.", price: 490, img: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&auto=format&fit=crop&q=80" },
+                { id: "bo8", name: "Culotte Less Encaje Total", desc: "Transparencia sexy en la parte posterior.", price: 220, img: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&auto=format&fit=crop&q=80" },
+                { id: "bo9", name: "Bombacha de Algodón con Puntilla", desc: "Borde superior decorado muy tierno.", price: 170, img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&auto=format&fit=crop&q=80" },
+                { id: "bo10", name: "Bikini Rib Confort", desc: "Textura acanalada de algodón de moda.", price: 195, img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&auto=format&fit=crop&q=80" }
             ],
             soutienes: [
-                { id: "so1", name: "Soutien Lycra con Encaje", desc: "Detalles de encaje fino trabajados en frente y espalda.", price: 490, img: "imagenes/soutien_1.jpg" },
-                { id: "so2", name: "Corpiño Algodón Sin Aro", desc: "Tazas desmontables, máxima libertad diaria.", price: 390, img: "imagenes/soutien_2.jpg" },
-                { id: "so3", name: "Soutien Reductor Base Fuerte", desc: "Breteles anchos para un soporte óptimo en busto grande.", price: 580, img: "imagenes/soutien_3.jpg" },
-                { id: "so4", name: "Bralette Escote V Profundo", desc: "Ideal para usar abajo de camisas abiertas.", price: 420, img: "imagenes/soutien_4.jpg" },
-                { id: "so5", name: "Soutien Push Up Silicona", desc: "Adhesivo invisible, perfecto para vestidos sin espalda.", price: 360, img: "imagenes/soutien_5.jpg" },
-                { id: "so6", name: "Corpiño Deportivo Alto Impacto", desc: "Sujeción firme para gimnasio o running.", price: 460, img: "imagenes/soutien_6.jpg" },
-                { id: "so7", name: "Soutien Maternal de Lactancia", desc: "Broche delantero práctico de abrir con una mano.", price: 520, img: "imagenes/soutien_7.jpg" },
-                { id: "so8", name: "Soutien Armado Microfibra", desc: "Soporte con arco tradicional, realce sutil.", price: 440, img: "imagenes/soutien_8.jpg" },
-                { id: "so9", name: "Top de Encaje Largo", desc: "Sin ganchos atrás, se coloca tipo remera.", price: 410, img: "imagenes/soutien_9.jpg" },
-                { id: "so10", name: "Soutien Strapless Desmontable", desc: "Silicona interna antideslizante para usar sin breteles.", price: 490, img: "imagenes/soutien_10.jpg" }
+                { id: "so1", name: "Soutien Lycra con Encaje", desc: "Detalles de encaje fino trabajados en frente y espalda.", price: 490, img: "https://images.unsplash.com/photo-1594934984185-da94f061b476?w=600&auto=format&fit=crop&q=80" },
+                { id: "so2", name: "Corpiño Algodón Sin Aro", desc: "Tazas desmontables, máxima libertad diaria.", price: 390, img: "https://images.unsplash.com/photo-1506152983158-b4a74a01c721?w=600&auto=format&fit=crop&q=80" },
+                { id: "so3", name: "Soutien Reductor Base Fuerte", desc: "Breteles anchos para un soporte óptimo en busto grande.", price: 580, img: "https://images.unsplash.com/photo-1581555222790-0644260aa2b2?w=600&auto=format&fit=crop&q=80" },
+                { id: "so4", name: "Bralette Escote V Profundo", desc: "Ideal para usar abajo de camisas abiertas.", price: 420, img: "https://images.unsplash.com/photo-1616952807123-d68ef5a4e4fc?w=600&auto=format&fit=crop&q=80" },
+                { id: "so5", name: "Soutien Push Up Silicona", desc: "Adhesivo invisible, perfecto para vestidos sin espalda.", price: 360, img: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&auto=format&fit=crop&q=80" },
+                { id: "so6", name: "Corpiño Deportivo Alto Impacto", desc: "Sujeción firme para gimnasio o running.", price: 460, img: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=600&auto=format&fit=crop&q=80" },
+                { id: "so7", name: "Soutien Maternal de Lactancia", desc: "Broche delantero práctico de abrir con una mano.", price: 520, img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&auto=format&fit=crop&q=80" },
+                { id: "so8", name: "Soutien Armado Microfibra", desc: "Soporte con arco tradicional, realce sutil.", price: 440, img: "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?w=600&auto=format&fit=crop&q=80" },
+                { id: "so9", name: "Top de Encaje Largo", desc: "Sin ganchos atrás, se coloca tipo remera.", price: 410, img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&auto=format&fit=crop&q=80" },
+                { id: "so10", name: "Soutien Strapless Desmontable", desc: "Silicona interna antideslizante para usar sin breteles.", price: 490, img: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&auto=format&fit=crop&q=80" }
             ],
             medias: [
-                { id: "me1", name: "Soquetes de Algodón Pack x3", desc: "Pack surtido en colores pasteles y neutros.", price: 120, img: "imagenes/medias_1.jpg" },
-                { id: "me2", name: "Medias Largas Abrigo", desc: "Estilo colegial o urbano para usar con zapatillas.", price: 90, img: "imagenes/medias_2.jpg" },
-                { id: "me3", name: "Bucaneras de Lana Finas", desc: "Llegan arriba de la rodilla, súper abrigadas.", price: 180, img: "imagenes/medias_3.jpg" },
-                { id: "me4", name: "Invisibles Antideslizantes", desc: "No se salen gracias al aplique de silicona en talón.", price: 60, img: "imagenes/medias_4.jpg" },
-                { id: "me5", name: "Panty Medias de Red", desc: "Tramado mediano clásico color negro.", price: 190, img: "imagenes/medias_5.jpg" },
-                { id: "me6", name: "Medias Térmicas de Descanso", desc: "Ideales para el invierno o andar de entrecasa.", price: 140, img: "imagenes/medias_6.jpg" },
-                { id: "me7", name: "Soquetes con Volados", desc: "Detalle romántico en el puño superior.", price: 85, img: "imagenes/medias_7.jpg" },
-                { id: "me8", name: "Medias de Compresión Media", desc: "Ayudan a la circulación, descanso de piernas.", price: 250, img: "imagenes/medias_8.jpg" },
-                { id: "me9", name: "Soquetes Deportivos con Toalla", desc: "Planta acolchada reforzada contra impactos.", price: 95, img: "imagenes/medias_9.jpg" },
-                { id: "me10", name: "Medias Estampadas Divertidas", desc: "Diseños coloridos de tendencia.", price: 110, img: "imagenes/medias_10.jpg" }
+                { id: "me1", name: "Soquetes de Algodón Pack x3", desc: "Pack surtido en colores pasteles y neutros.", price: 120, img: "https://images.unsplash.com/photo-1582966772680-860e372bb558?w=600&auto=format&fit=crop&q=80" },
+                { id: "me2", name: "Medias Largas Abrigo", desc: "Estilo colegial o urbano para usar con zapatillas.", price: 90, img: "https://images.unsplash.com/photo-1603400521630-9f2de124b33b?w=600&auto=format&fit=crop&q=80" },
+                { id: "me3", name: "Bucaneras de Lana Finas", desc: "Llegan arriba de la rodilla, súper abrigadas.", price: 180, img: "https://images.unsplash.com/photo-1529940315032-1563be6f030a?w=600&auto=format&fit=crop&q=80" },
+                { id: "me4", name: "Invisibles Antideslizantes", desc: "No se salen gracias al aplique de silicona en talón.", price: 60, img: "https://images.unsplash.com/photo-1560243563-062bfc001d68?w=600&auto=format&fit=crop&q=80" },
+                { id: "me5", name: "Panty Medias de Red", desc: "Tramado mediano clásico color negro.", price: 190, img: "https://images.unsplash.com/photo-1506634572416-48cdfe530110?w=600&auto=format&fit=crop&q=80" },
+                { id: "me6", name: "Medias Térmicas de Descanso", desc: "Ideales para el invierno o andar de entrecasa.", price: 140, img: "https://images.unsplash.com/photo-1607345366928-199ea26cfe3e?w=600&auto=format&fit=crop&q=80" },
+                { id: "me7", name: "Soquetes con Volados", desc: "Detalle romántico en el puño superior.", price: 85, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=80" },
+                { id: "me8", name: "Medias de Compresión Media", desc: "Ayudan a la circulación, descanso de piernas.", price: 250, img: "https://images.unsplash.com/photo-1586867764400-947fc23aa1ed?w=600&auto=format&fit=crop&q=80" },
+                { id: "me9", name: "Soquetes Deportivos con Toalla", desc: "Planta acolchada reforzada contra impactos.", price: 95, img: "https://images.unsplash.com/photo-1460353581641-37baddff0d26?w=600&auto=format&fit=crop&q=80" },
+                { id: "me10", name: "Medias Estampadas Divertidas", desc: "Diseños coloridos de tendencia.", price: 110, img: "https://images.unsplash.com/photo-1559551345-c6723b015586?w=600&auto=format&fit=crop&q=80" }
             ],
             dormir: [
-                { id: "do1", name: "Pijama Satén Short y Musculosa", desc: "Prenda fresca y elegante con detalles de vivos blancos.", price: 980, img: "imagenes/dormir_1.jpg" },
-                { id: "do2", name: "Camisolín de Raso y Puntilla", desc: "Breteles finos regulables, caída espectacular.", price: 790, img: "imagenes/dormir_2.jpg" },
-                { id: "do3", name: "Pijama Algodón Invierno", desc: "Pantalón largo estampado y remera manga larga.", price: 1250, img: "imagenes/dormir_3.jpg" },
-                { id: "do4", name: "Bata Corta Satinada", desc: "Lazo de ajuste interno y externo, largo a media pierna.", price: 890, img: "imagenes/dormir_4.jpg" },
-                { id: "do5", name: "Remera de Dormir Oversize", desc: "Algodón ultra suave tipo camisola holgada.", price: 550, img: "imagenes/dormir_5.jpg" },
-                { id: "do6", name: "Pijama Short de Modal", desc: "Tela fresca y elástica, no deforma con los lavados.", price: 840, img: "imagenes/dormir_6.jpg" },
-                { id: "do7", name: "Bata de Polar Soft con Capucha", desc: "Súper abrigada y mullida para el invierno.", price: 1450, img: "imagenes/dormir_7.jpg" },
-                { id: "do8", name: "Monito Corto de Algodón", desc: "Enterito entero con elástico ajustable en cintura.", price: 720, img: "imagenes/dormir_8.jpg" },
-                { id: "do9", name: "Antifaz de Satén Acolchado", desc: "Bloqueo total de luz, cuidado delicado para tus ojos.", price: 150, img: "imagenes/dormir_9.jpg" },
-                { id: "do10", name: "Pijama Capri Modal Flores", desc: "Pantalón tipo pescador 3/4 muy cómodo.", price: 920, img: "imagenes/dormir_10.jpg" }
-            ]
-        };
-
-        let catalogData = {};
-        let cart = [];
-
-        // Conectar con la API remota de JsonBin
-        async function loadCatalogFromRemote() {
-            try {
-                const response = await fetch(JSON_URL, {
-                    method: 'GET',
-                    headers: {
-                        'X-Master-Key': MASTER_KEY,
-                        'X-Bin-Meta': 'false'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error("Respuesta de red no válida");
-                }
-
-                catalogData = await response.json();
-                console.log("Catálogo remoto cargado con éxito.");
-                renderCatalog();
-                
-            } catch (error) {
-                console.warn("Error cargando base remota, usando catálogo de respaldo local:", error);
-                catalogData = backupCatalogData;
-                renderCatalog();
-            }
-        }
-
-        // Renderizar las tarjetas de los productos
-        function renderCatalog() {
-            for (const [category, products] of Object.entries(catalogData)) {
-                const container = document.getElementById(`cat-${category}`);
-                if (!container) continue;
-                
-                let html = "";
-                products.forEach(p => {
-                    // Si la imagen remota empieza con http se usa directamente, sino se asume local
-                    const imageSource = p.img.startsWith('http') ? p.img : p.img;
-                    
-                    html += `
-                        <div class="product-card">
-                            <div class="product-image" style="background-image: linear-gradient(rgba(255,255,255,0.1), rgba(0,0,0,0.02)), url('${imageSource}');">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-title">${p.name}</div>
-                                <div class="product-desc">${p.desc}</div>
-                                <div class="product-meta">
-                                    <div class="product-price">$ ${p.price}</div>
-                                    <button class="btn-add" onclick="addToCart('${p.name}', ${p.price})">Agregar</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-                container.innerHTML = html;
-            }
-        }
-
-        // Cambiar pestañas dinámicamente
-        function switchCategory(categoryName) {
-            document.querySelectorAll('.products-section').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.category-btn').forEach(el => el.classList.remove('active'));
-            
-            const targetSection = document.getElementById(`cat-${categoryName}`);
-            if (targetSection) targetSection.classList.add('active');
-            
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
-        }
-
-        // Agregar productos y disparar el Toast flotante
-        function addToCart(name, price) {
-            cart.push({ name, price });
-            updateCartUI();
-            
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => toas
+                { id: "do1", name: "Pijama Satén Short y Musculosa", desc: "Prenda fresca y elegante con detalles de vivos blancos.", price: 980, img: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=600&auto=format&fit=crop&q=80" },
+                { id: "do2", name: "Camisolín de Raso y Puntilla", desc: "Breteles finos regulables, caída espectacular.", price: 790, img: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&auto=format&fit=crop&q=80" },
+                { id: "do3", name: "Pijama Algodón Invierno", desc: "Pantalón largo estampado y remera manga larga.", price: 1250, img: "https://images.unsplash.com/photo-1562572159-4ebcd318f4dd?w=600&auto=format&fit=crop&q=80" },
+                { id: "do4", name: "Bata Corta Satinada", desc: "Lazo de ajuste interno y externo, largo a media pierna.", price: 890, img: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=600&auto=format&fit=crop&q=80" },
+                { id: "do5", name: "Remera de Dormir Oversize", desc: "Algodón ultra suave tipo camisola holgada.", price: 550, img: "https://images.unsplash.com/photo-1515343480029-43cdfe6b6aae?w=600&auto=format&fit=crop&q=80" },
+                { id: "do6", name: "Pijama Short de Modal", desc: "Tela fresca y elástica, no deforma con los lavados.", price: 840, img: "https://images.unsplash.com/photo-1542574621-e088a9a0eefa?w=600&auto=format&fit=crop&q=80" },
+                { id: "do7", name: "Bata de Polar Soft con Capucha", desc: "Súper abrigada y mullida para el invierno.", price: 1450, img: "https://images.unsplash.com/photo-1517554558809-9b4971b38f39?w=600&auto=format&fit=crop&q=80" },
+                { id: "do8", name: "Monito Corto de Algodón", desc: "Enterito entero con elástico ajustable en cintura.", price: 720, img: "https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&auto=format&fit=crop&q=80" },
+                { id: "do9", name: "Antifaz de Satén Acolchado", desc: "Bloqueo total de luz, cuidado delicado para tus ojos.", price: 150, img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop&q=80" },
+                { id: "do10", name: "Pijama Capri Modal Flores", desc: "Pantalón tipo pescador

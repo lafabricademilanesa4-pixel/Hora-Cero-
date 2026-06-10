@@ -3,53 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Fábrica de las Milanesas</title>
+    <title>NÜMIA | Ropa Interior</title>
     <style>
         * {
-            box-shadow: none;
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background-color: #121212;
-            color: #eeeeee;
+            background-color: #faf8fc;
+            color: #4a4a4a;
             padding-bottom: 100px;
         }
 
+        /* Encabezado elegante inspirado en el logo */
         header {
-            background: linear-gradient(180deg, #1a1a1a 0%, #111111 100%);
-            padding: 25px 15px;
+            background-color: #ffffff;
+            padding: 30px 15px;
             text-align: center;
-            border-bottom: 3px solid #ff9f43;
+            border-bottom: 1px solid #eadef7;
+            box-shadow: 0 2px 10px rgba(162, 131, 219, 0.05);
         }
 
         header h1 {
-            font-size: 26px;
-            color: #ff9f43;
+            font-size: 28px;
+            color: #2a2a2a;
+            letter-spacing: 4px;
+            font-weight: 400;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 5px;
         }
 
         header p {
-            font-size: 14px;
-            color: #aaa;
-            margin-top: 5px;
+            font-size: 13px;
+            color: #8b7ca2;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        /* Categorías Desplazables Horizontalmente (Ideal para celular) */
+        /* Barra de Categorías Desplazable (Lila sutil y dorado) */
         .categories-container {
             position: sticky;
             top: 0;
-            background-color: #111;
-            padding: 10px 0;
+            background-color: #ffffff;
+            padding: 12px 0;
             z-index: 10;
             overflow-x: auto;
             white-space: nowrap;
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid #ebdff9;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
             -webkit-overflow-scrolling: touch;
+            text-align: center;
         }
 
         .categories-container::-webkit-scrollbar {
@@ -58,25 +64,27 @@
 
         .category-btn {
             display: inline-block;
-            background: #222;
-            color: #aaa;
-            padding: 10px 18px;
-            margin: 0 5px;
-            border-radius: 20px;
-            border: 1px solid #333;
-            font-weight: 600;
-            font-size: 14px;
+            background: #f5edf1;
+            color: #7b6a93;
+            padding: 10px 20px;
+            margin: 0 6px;
+            border-radius: 25px;
+            border: 1px solid #e4daf2;
+            font-weight: 500;
+            font-size: 13px;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .category-btn.active {
-            background: #ff9f43;
-            color: #111;
-            border-color: #ff9f43;
+            background: #a283db;
+            color: #ffffff;
+            border-color: #a283db;
+            box-shadow: 0 3px 8px rgba(162, 131, 219, 0.3);
         }
 
         .container {
-            max-width: 600px;
+            max-width: 500px;
             margin: 20px auto;
             padding: 0 15px;
         }
@@ -89,43 +97,46 @@
             display: block;
         }
 
+        /* Tarjeta de Producto Estilo Boutique */
         .product-card {
-            background: #1e1e1e;
-            border-radius: 14px;
+            background: #ffffff;
+            border-radius: 16px;
             overflow: hidden;
-            margin-bottom: 20px;
-            border: 1px solid #2a2a2a;
+            margin-bottom: 25px;
+            border: 1px solid #efeaf6;
+            box-shadow: 0 4px 15px rgba(162, 131, 219, 0.04);
         }
 
         .product-image {
             width: 100%;
-            height: 180px;
-            background-color: #2d2d2d;
+            height: 240px;
+            background-color: #f6f3f9;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #666;
-            font-weight: bold;
-            font-size: 13px;
+            color: #b3a7c7;
+            font-size: 12px;
+            letter-spacing: 1px;
             background-size: cover;
             background-position: center;
+            border-bottom: 1px solid #f1eaf7;
         }
 
         .product-info {
-            padding: 15px;
+            padding: 20px;
         }
 
         .product-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 5px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 6px;
         }
 
         .product-desc {
             font-size: 13px;
-            color: #999;
-            margin-bottom: 12px;
+            color: #7a7a7a;
+            margin-bottom: 15px;
             line-height: 1.4;
         }
 
@@ -136,39 +147,41 @@
         }
 
         .product-price {
-            font-size: 19px;
-            color: #ff9f43;
-            font-weight: bold;
+            font-size: 18px;
+            color: #845ec2;
+            font-weight: 700;
         }
 
         .btn-add {
-            background-color: #ff9f43;
-            color: #111;
-            padding: 10px 16px;
+            background-color: #a283db;
+            color: #ffffff;
+            padding: 10px 20px;
             border: none;
-            border-radius: 8px;
-            font-weight: bold;
+            border-radius: 20px;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
+            transition: background 0.2s;
         }
 
         .btn-add:active {
-            background-color: #f39c12;
+            background-color: #845ec2;
         }
 
-        /* Barra Inferior Fija del Carrito */
+        /* Barra Inferior de Confirmación (Estilo WhatsApp Clean) */
         .cart-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background-color: #1a1a1a;
-            border-top: 3px solid #25d366;
+            background-color: #ffffff;
+            border-top: 1px solid #ebdff9;
             padding: 15px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             z-index: 100;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.04);
         }
 
         .cart-summary {
@@ -177,47 +190,48 @@
         }
 
         .cart-count {
-            font-size: 13px;
-            color: #aaa;
+            font-size: 12px;
+            color: #8b7ca2;
         }
 
         .cart-total {
-            font-size: 18px;
-            font-weight: bold;
-            color: #fff;
+            font-size: 19px;
+            font-weight: 700;
+            color: #333333;
         }
 
         .btn-whatsapp {
             background-color: #25d366;
             color: white;
             text-decoration: none;
-            padding: 12px 20px;
+            padding: 12px 24px;
             border-radius: 25px;
             font-weight: bold;
-            font-size: 15px;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
         }
 
         .btn-whatsapp.disabled {
-            background-color: #444;
-            color: #777;
+            background-color: #e0dbec;
+            color: #a6a1b5;
             pointer-events: none;
             box-shadow: none;
         }
 
+        /* Notificación Flotante */
         .toast {
             position: fixed;
-            top: 80px;
+            bottom: 90px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #25d366;
+            background-color: #4e367c;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 24px;
             border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
+            font-size: 13px;
+            font-weight: 500;
             opacity: 0;
-            transition: opacity 0.2s;
+            transition: opacity 0.2s ease, transform 0.2s ease;
             z-index: 1000;
         }
         .toast.show { opacity: 1; }
@@ -226,122 +240,111 @@
 <body>
 
     <header>
-        <h1>La Fábrica de las Milanesas</h1>
-        <p>Armá tu carrito y mandanos el pedido directo a WhatsApp</p>
+        <h1>NÜMIA</h1>
+        <p>Ropa Interior & Lencería</p>
     </header>
 
-    <div class="toast" id="toast">¡Agregado al pedido!</div>
+    <div class="toast" id="toast">Agregado a tu selección</div>
 
-    <!-- Menú de Categorías -->
+    <!-- Pestañas de categorías del catálogo -->
     <div class="categories-container">
-        <button class="category-btn active" onclick="switchCategory('carne')">Milanesas de Carne</button>
-        <button class="category-btn" onclick="switchCategory('pollo')">Milanesas de Pollo</button>
-        <button class="category-btn" onclick="switchCategory('supremas')">Supremas Rellenas</button>
-        <button class="category-btn" onclick="switchCategory('guarniciones')">Guarniciones</button>
-        <button class="category-btn" onclick="switchCategory('bebidas')">Bebidas y Postres</button>
+        <button class="category-btn active" onclick="switchCategory('conjuntos')">Conjuntos</button>
+        <button class="category-btn" onclick="switchCategory('bombachas')">Bombachas / Less</button>
+        <button class="category-btn" onclick="switchCategory('soutienes')">Soutienes</button>
+        <button class="category-btn" onclick="switchCategory('medias')">Medias / Soquetes</button>
+        <button class="category-btn" onclick="switchCategory('dormir')">Línea Dormir</button>
     </div>
 
     <div class="container">
-        
-        <!-- SECCIÓN 1: CARNE -->
-        <div id="cat-carne" class="products-section active"></div>
-
-        <!-- SECCIÓN 2: POLLO -->
-        <div id="cat-pollo" class="products-section"></div>
-
-        <!-- SECCIÓN 3: SUPREMAS -->
-        <div id="cat-supremas" class="products-section"></div>
-
-        <!-- SECCIÓN 4: GUARNICIONES -->
-        <div id="cat-guarniciones" class="products-section"></div>
-
-        <!-- SECCIÓN 5: BEBIDAS -->
-        <div id="cat-bebidas" class="products-section"></div>
-
+        <!-- Las secciones se auto-rellenan desde el script -->
+        <div id="cat-conjuntos" class="products-section active"></div>
+        <div id="cat-bombachas" class="products-section"></div>
+        <div id="cat-soutienes" class="products-section"></div>
+        <div id="cat-medias" class="products-section"></div>
+        <div id="cat-dormir" class="products-section"></div>
     </div>
 
-    <!-- Barra de Carrito Fijo Inferior -->
+    <!-- Barra de pedido fija -->
     <div class="cart-bar">
         <div class="cart-summary">
-            <span class="cart-count" id="cart-count">0 artículos</span>
+            <span class="cart-count" id="cart-count">0 prendas</span>
             <span class="cart-total" id="cart-total">Total: $0</span>
         </div>
         <a href="#" id="whatsapp-link" class="btn-whatsapp disabled" target="_blank" onclick="sendOrder(event)">
-            Confirmar Pedido
+            Enviar Pedido
         </a>
     </div>
 
     <script>
-        // Cambiá este número por tu WhatsApp real (Formato: código de país + número sin el 0)
+        // CONFIGURACIÓN DE WHATSAPP (Cambiá por el número final de las dueñas)
         const WHATSAPP_PHONE = "59899000000"; 
 
-        // Base de datos de muestra: 5 categorías x 10 artículos
+        // Base de datos estructurada con el formato solicitado: 5 categorías x 10 artículos de muestra cada una
         const catalogData = {
-            carne: [
-                { id: "c1", name: "Milanesa Al Pan Clásica", desc: "Lechuga, tomate y mayonesa.", price: 290, img: "imagenes/carne_1.jpg" },
-                { id: "c2", name: "Milanesa Al Pan Completa", desc: "Huevo frito, jamón, queso, lechuga y tomate.", price: 360, img: "imagenes/carne_2.jpg" },
-                { id: "c3", name: "Milanesa Napolitana con Fritas", desc: "Salsa de tomate, jamón y muzzarella derretida.", price: 480, img: "imagenes/carne_3.jpg" },
-                { id: "c4", name: "Milanesa Fugazzeta", desc: "Mucha muzzarella y cebolla dorada al oreganato.", price: 460, img: "imagenes/carne_4.jpg" },
-                { id: "c5", name: "Milanesa a la Suiza", desc: "Salsa blanca cremosa, gratina con queso parmesano.", price: 490, img: "imagenes/carne_5.jpg" },
-                { id: "c6", name: "Milanesa Tres Quesos", desc: "Muzzarella, roquefort y dambo fundidos.", price: 510, img: "imagenes/carne_6.jpg" },
-                { id: "c7", name: "Milanesa Criolla", desc: "Con dos huevos fritos arriba y panceta crocante.", price: 470, img: "imagenes/carne_7.jpg" },
-                { id: "c8", name: "Milanesa Barbacoa Bacon", desc: "Bañada en barbacoa, cheddar y lluvia de panceta.", price: 495, img: "imagenes/carne_8.jpg" },
-                { id: "c9", name: "Milanesa de la Casa", desc: "Base de carne XL, morrones asados, aceitunas y huevo.", price: 530, img: "imagenes/carne_9.jpg" },
-                { id: "c10", name: "Milanesa Simple Sola", desc: "Ideal para compartir o armar a tu gusto.", price: 240, img: "imagenes/carne_10.jpg" }
+            conjuntos: [
+                { id: "co1", name: "Conjunto Encaje con Bralette", desc: "Delicado bralette de encaje con colaless regulable.", price: 790, img: "imagenes/conjunto_1.jpg" },
+                { id: "co2", name: "Conjunto Algodón Sport", desc: "Corpiño deportivo y culotte de algodón premium.", price: 650, img: "imagenes/conjunto_2.jpg" },
+                { id: "co3", name: "Conjunto Raso Romántico", desc: "Detalles de puntilla, tazas armadas soft.", price: 890, img: "imagenes/conjunto_3.jpg" },
+                { id: "co4", name: "Conjunto Tul Transparencias", desc: "Diseño moderno con breteles dobles ajustables.", price: 750, img: "imagenes/conjunto_4.jpg" },
+                { id: "co5", name: "Conjunto Push Up Clásico", desc: "Realce natural con bombacha tiro medio.", price: 820, img: "imagenes/conjunto_5.jpg" },
+                { id: "co6", name: "Conjunto Satén Satinado", desc: "Textura ultra suave ideal para ocasiones especiales.", price: 950, img: "imagenes/conjunto_6.jpg" },
+                { id: "co7", name: "Conjunto Sin Costuras", desc: "Microfibra invisible, no marca nada bajo la ropa.", price: 690, img: "imagenes/conjunto_7.jpg" },
+                { id: "co8", name: "Conjunto Bralette Largo", desc: "Estilo top largo de encaje con less de hilo.", price: 780, img: "imagenes/conjunto_8.jpg" },
+                { id: "co9", name: "Conjunto Sweet Floral", desc: "Estampado delicado con terminaciones de puntilla.", price: 720, img: "imagenes/conjunto_9.jpg" },
+                { id: "co10", name: "Conjunto Sirena Microfibra", desc: "Colores de temporada con taza soft desmontable.", price: 850, img: "imagenes/conjunto_10.jpg" }
             ],
-            pollo: [
-                { id: "p1", name: "Milanesa de Pollo Simple", desc: "Pechuga tierna rebozada clásica.", price: 230, img: "imagenes/pollo_1.jpg" },
-                { id: "p2", name: "Milanesa Pollo Al Pan Completa", desc: "Jamón, queso, huevo, lechuga y tomate.", price: 340, img: "imagenes/pollo_2.jpg" },
-                { id: "p3", name: "Milanesa Pollo Napolitana", desc: "Salsa, jamón y muzzarella fundida.", price: 450, img: "imagenes/pollo_3.jpg" },
-                { id: "p4", name: "Milanesa Pollo al Verdeo", desc: "Salsa crema de leche con cebollita de verdeo.", price: 480, img: "imagenes/pollo_4.jpg" },
-                { id: "p5", name: "Milanesa Pollo Caprese", desc: "Muzzarella, rodajas de tomate fresco y albahaca.", price: 430, img: "imagenes/pollo_5.jpg" },
-                { id: "p6", name: "Milanesa Pollo Cheddar", desc: "Queso cheddar fundido y cebolla crispy.", price: 465, img: "imagenes/pollo_6.jpg" },
-                { id: "p7", name: "Milanesa Pollo con Champiñones", desc: "Crema intensa con champiñones fileteados.", price: 490, img: "imagenes/pollo_7.jpg" },
-                { id: "p8", name: "Milanesa Pollo Club Social", desc: "Con palta, tomate y aderezo especial de la casa.", price: 460, img: "imagenes/pollo_8.jpg" },
-                { id: "p9", name: "Milanesa Pollo Tex-Mex", desc: "Salsa ligeramente picante, maíz, porotos y queso.", price: 470, img: "imagenes/pollo_9.jpg" },
-                { id: "p10", name: "Nuggets de Pollo Caseros (x10)", desc: "Acompañados de salsa barbacoa o alioli.", price: 280, img: "imagenes/pollo_10.jpg" }
+            bombachas: [
+                { id: "bo1", name: "Cola Less de Encaje", desc: "Talles del M al XL. Varios tonos disponibles.", price: 190, img: "imagenes/less_1.jpg" },
+                { id: "bo2", name: "Bikini de Algodón Florcitas", desc: "Estampado clásico calce cómodo para el día.", price: 160, img: "imagenes/less_2.jpg" },
+                { id: "bo3", name: "Cola Less Regulable Hilo", desc: "Breteles elásticos finos adaptables.", price: 180, img: "imagenes/less_3.jpg" },
+                { id: "bo4", name: "Culotte de Algodón y Lycra", desc: "Máximo confort, elástico suave que no aprieta.", price: 210, img: "imagenes/less_4.jpg" },
+                { id: "bo5", name: "Bombacha Tiro Alto Modeladora", desc: "Compresión ligera en abdomen, contorno libre.", price: 290, img: "imagenes/less_5.jpg" },
+                { id: "bo6", name: "Vedetina Clásica Listas", desc: "Pack diario, algodón transpirable de alta calidad.", price: 150, img: "imagenes/less_6.jpg" },
+                { id: "bo7", name: "Pack x3 Less Invisibles", desc: "Corte láser tecnológico, ideales para calzas.", price: 490, img: "imagenes/less_7.jpg" },
+                { id: "bo8", name: "Culotte Less Encaje Total", desc: "Transparencia sexy en la parte posterior.", price: 220, img: "imagenes/less_8.jpg" },
+                { id: "bo9", name: "Bombacha de Algodón con Puntilla", desc: "Borde superior decorado muy tierno.", price: 170, img: "imagenes/less_9.jpg" },
+                { id: "bo10", name: "Bikini Rib Confort", desc: "Textura acanalada de algodón de moda.", price: 195, img: "imagenes/less_10.jpg" }
             ],
-            supremas: [
-                { id: "s1", name: "Suprema Rellena J&Q", desc: "Rellena de abundante jamón y queso dambo.", price: 420, img: "imagenes/suprema_1.jpg" },
-                { id: "s2", name: "Suprema Rellena de la Huerta", desc: "Espinacas a la crema, muzzarella y nuez moscada.", price: 440, img: "imagenes/suprema_2.jpg" },
-                { id: "s3", name: "Suprema Rellena Americana", desc: "Queso cheddar, panceta ahumada y cebolla caramelizada.", price: 460, img: "imagenes/suprema_3.jpg" },
-                { id: "s4", name: "Suprema Rellena Blue", desc: "Queso azul (roquefort) y apio picado fino.", price: 470, img: "imagenes/suprema_4.jpg" },
-                { id: "s5", name: "Suprema Caprese Rellena", desc: "Tomates secos, muzzarella e hilos de pesto.", price: 450, img: "imagenes/suprema_5.jpg" },
-                { id: "s6", name: "Suprema Rellena con Ahumados", desc: "Queso provolone y bondiola ahumada.", price: 480, img: "imagenes/suprema_6.jpg" },
-                { id: "s7", name: "Suprema Bombón", desc: "Rellena de crema de maíz dulce (choclo) y queso.", price: 430, img: "imagenes/suprema_7.jpg" },
-                { id: "s8", name: "Suprema Rellena Picante", desc: "Salame, muzzarella y rodajas de jalapeño.", price: 460, img: "imagenes/suprema_8.jpg" },
-                { id: "s9", name: "Suprema Rellena Premium", desc: "Pápatas, champiñones, muzzarella y finas hierbas.", price: 490, img: "imagenes/suprema_9.jpg" },
-                { id: "s10", name: "Suprema Rellena Light", desc: "Queso magro, ricota y tiritas de morrón verde.", price: 410, img: "imagenes/suprema_10.jpg" }
+            soutienes: [
+                { id: "so1", name: "Soutien Lycra con Encaje", desc: "Detalles de encaje fino trabajados en frente y espalda.", price: 490, img: "imagenes/soutien_1.jpg" },
+                { id: "so2", name: "Corpiño Algodón Sin Aro", desc: "Tazas desmontables, máxima libertad diaria.", price: 390, img: "imagenes/soutien_2.jpg" },
+                { id: "so3", name: "Soutien Reductor Base Fuerte", desc: "Breteles anchos para un soporte óptimo en busto grande.", price: 580, img: "imagenes/soutien_3.jpg" },
+                { id: "so4", name: "Bralette Escote V Profundo", desc: "Ideal para usar abajo de camisas abiertas.", price: 420, img: "imagenes/soutien_4.jpg" },
+                { id: "so5", name: "Soutien Push Up Silicona", desc: "Adhesivo invisible, perfecto para vestidos sin espalda.", price: 360, img: "imagenes/soutien_5.jpg" },
+                { id: "so6", name: "Corpiño Deportivo Alto Impacto", desc: "Sujeción firme para gimnasio o running.", price: 460, img: "imagenes/soutien_6.jpg" },
+                { id: "so7", name: "Soutien Maternal de Lactancia", desc: "Broche delantero práctico de abrir con una mano.", price: 520, img: "imagenes/soutien_7.jpg" },
+                { id: "so8", name: "Soutien Armado Microfibra", desc: "Soporte con arco tradicional, realce sutil.", price: 440, img: "imagenes/soutien_8.jpg" },
+                { id: "so9", name: "Top de Encaje Largo", desc: "Sin ganchos atrás, se coloca tipo remera.", price: 410, img: "imagenes/soutien_9.jpg" },
+                { id: "so10", name: "Soutien Strapless Desmontable", desc: "Silicona interna antideslizante para usar sin breteles.", price: 490, img: "imagenes/soutien_10.jpg" }
             ],
-            guarniciones: [
-                { id: "g1", name: "Papas Fritas Tradicionales", desc: "Porción abundante, crocantes y doradas.", price: 160, img: "imagenes/guarnicion_1.jpg" },
-                { id: "g2", name: "Papas Fritas con Cheddar & Bacon", desc: "Bañadas en salsa cheddar y panceta picada.", price: 240, img: "imagenes/guarnicion_2.jpg" },
-                { id: "g3", name: "Pure de Papas Casero", desc: "Bien cremoso, hecho con manteca y leche.", price: 140, img: "imagenes/guarnicion_3.jpg" },
-                { id: "g4", name: "Pure de Calabaza", desc: "Suave, dulce y sazonado al toque del chef.", price: 140, img: "imagenes/guarnicion_4.jpg" },
-                { id: "g5", name: "Ensalada Mixta Básica", desc: "Lechuga, tomate y cebolla.", price: 130, img: "imagenes/guarnicion_5.jpg" },
-                { id: "g6", name: "Ensalada Rusa", desc: "Papa, zanahoria, arvejas y mucha mayonesa.", price: 170, img: "imagenes/guarnicion_6.jpg" },
-                { id: "g7", name: "Ensalada Completa Huerta", desc: "Rúcula, zanahoria rallada, huevo duro y choclo.", price: 180, img: "imagenes/guarnicion_7.jpg" },
-                { id: "g8", name: "Papas Rústicas al Horno", desc: "Con cáscara, romero, oliva y pimentón dulce.", price: 175, img: "imagenes/guarnicion_8.jpg" },
-                { id: "g9", name: "Aros de Cebolla Crujientes", desc: "Porción ideal para picar antes de la mila.", price: 190, img: "imagenes/guarnicion_9.jpg" },
-                { id: "g10", name: "Huevo Frito Extra (x2)", desc: "Dos unidades al punto justo para sumar a tu plato.", price: 60, img: "imagenes/guarnicion_10.jpg" }
+            medias: [
+                { id: "me1", name: "Soquetes de Algodón Pack x3", desc: "Pack surtido en colores pasteles y neutros.", price: 120, img: "imagenes/medias_1.jpg" },
+                { id: "me2", name: "Medias Largas Abrigo", desc: "Estilo colegial o urbano para usar con zapatillas.", price: 90, img: "imagenes/medias_2.jpg" },
+                { id: "me3", name: "Bucaneras de Lana Finas", desc: "Llegan arriba de la rodilla, súper abrigadas.", price: 180, img: "imagenes/medias_3.jpg" },
+                { id: "me4", name: "Invisibles Antideslizantes", desc: "No se salen gracias al aplique de silicona en talón.", price: 60, img: "imagenes/medias_4.jpg" },
+                { id: "me5", name: "Panty Medias de Red", desc: "Tramado mediano clásico color negro.", price: 190, img: "imagenes/medias_5.jpg" },
+                { id: "me6", name: "Medias Térmicas de Descanso", desc: "Ideales para el invierno o andar de entrecasa.", price: 140, img: "imagenes/medias_6.jpg" },
+                { id: "me7", name: "Soquetes con Volados", desc: "Detalle romántico en el puño superior.", price: 85, img: "imagenes/medias_7.jpg" },
+                { id: "me8", name: "Medias de Compresión Media", desc: "Ayudan a la circulación, descanso de piernas.", price: 250, img: "imagenes/medias_8.jpg" },
+                { id: "me9", name: "Soquetes Deportivos con Toalla", desc: "Planta acolchada reforzada contra impactos.", price: 95, img: "imagenes/medias_9.jpg" },
+                { id: "me10", name: "Medias Estampadas Divertidas", desc: "Diseños coloridos de tendencia.", price: 110, img: "imagenes/medias_10.jpg" }
             ],
-            bebidas: [
-                { id: "b1", name: "Refresco 600ml", desc: "Línea Coca Cola o Pepsi según stock.", price: 110, img: "imagenes/bebida_1.jpg" },
-                { id: "b2", name: "Refresco de 1.5L", desc: "Ideal para los pedidos familiares.", price: 180, img: "imagenes/bebida_2.jpg" },
-                { id: "b3", name: "Agua Mineral 600ml", desc: "Con o sin gas.", price: 90, img: "imagenes/bebida_3.jpg" },
-                { id: "b4", name: "Cerveza Nacional 1L", desc: "Bien helada para acompañar la cena.", price: 220, img: "imagenes/bebida_4.jpg" },
-                { id: "b5", name: "Cerveza Artesanal Lata", desc: "Variedades APA, IPA o Rubia común.", price: 150, img: "imagenes/bebida_5.jpg" },
-                { id: "b6", name: "Flan Casero con Dulce", desc: "Con dulce de leche uruguayo.", price: 130, img: "imagenes/bebida_6.jpg" },
-                { id: "b7", name: "Chajá de Postre", desc: "El clásico postre con merengue y durazno.", price: 160, img: "imagenes/bebida_7.jpg" },
-                { id: "b8", name: "Mousse de Chocolate", desc: "Cremosa, suave y bien chocolatosa.", price: 140, img: "imagenes/bebida_8.jpg" },
-                { id: "b9", name: "Ensalada de Frutas", desc: "Frutas de estación picadas, 100% natural.", price: 130, img: "imagenes/bebida_9.jpg" },
-                { id: "b10", name: "Jugo Natural de Naranja", desc: "Exprimido en el momento (500ml).", price: 140, img: "imagenes/bebida_10.jpg" }
+            dormir: [
+                { id: "do1", name: "Pijama Satén Short y Musculosa", desc: "Prenda fresca y elegante con detalles de vivos blancos.", price: 980, img: "imagenes/dormir_1.jpg" },
+                { id: "do2", name: "Camisolín de Raso y Puntilla", desc: "Breteles finos regulables, caída espectacular.", price: 790, img: "imagenes/dormir_2.jpg" },
+                { id: "do3", name: "Pijama Algodón Invierno", desc: "Pantalón largo estampado y remera manga larga.", price: 1250, img: "imagenes/dormir_3.jpg" },
+                { id: "do4", name: "Bata Corta Satinada", desc: "Lazo de ajuste interno y externo, largo a media pierna.", price: 890, img: "imagenes/dormir_4.jpg" },
+                { id: "do5", name: "Remera de Dormir Oversize", desc: "Algodón ultra suave tipo camisola holgada.", price: 550, img: "imagenes/dormir_5.jpg" },
+                { id: "do6", name: "Pijama Short de Modal", desc: "Tela fresca y elástica, no deforma con los lavados.", price: 840, img: "imagenes/dormir_6.jpg" },
+                { id: "do7", name: "Bata de Polar Soft con Capucha", desc: "Súper abrigada y mullida para el invierno.", price: 1450, img: "imagenes/dormir_7.jpg" },
+                { id: "do8", name: "Monito Corto de Algodón", desc: "Enterito entero con elástico ajustable en cintura.", price: 720, img: "imagenes/dormir_8.jpg" },
+                { id: "do9", name: "Antifaz de Satén Acolchado", desc: "Bloqueo total de luz, cuidado delicado para tus ojos.", price: 150, img: "imagenes/dormir_9.jpg" },
+                { id: "do10", name: "Pijama Capri Modal Flores", desc: "Pantalón tipo pescador 3/4 muy cómodo.", price: 920, img: "imagenes/dormir_10.jpg" }
             ]
         };
 
         let cart = [];
 
-        // Generar las tarjetas en la pantalla automáticamente
         function renderCatalog() {
             for (const [category, products] of Object.entries(catalogData)) {
                 const container = document.getElementById(`cat-${category}`);
@@ -350,8 +353,8 @@
                 products.forEach(p => {
                     html += `
                         <div class="product-card">
-                            <div class="product-image" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${p.img}');">
-                                📷 [Clic para subir: ${p.img}]
+                            <div class="product-image" style="background-image: linear-gradient(rgba(255,255,255,0.1), rgba(0,0,0,0.02)), url('${p.img}');">
+                                🌸 [Imagen: ${p.id}.jpg]
                             </div>
                             <div class="product-info">
                                 <div class="product-title">${p.name}</div>
@@ -368,9 +371,8 @@
             }
         }
 
-        // Cambiar entre pestañas de categorías
         function switchCategory(categoryName) {
-            document.querySelectorAll('.product-grid, .products-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.products-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.category-btn').forEach(el => el.classList.remove('active'));
             
             document.getElementById(`cat-${categoryName}`).classList.add('active');
@@ -381,7 +383,6 @@
             cart.push({ name, price });
             updateCartUI();
             
-            // Mostrar cartelito temporal arriba
             const toast = document.getElementById('toast');
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 1200);
@@ -392,7 +393,7 @@
             const totalEl = document.getElementById('cart-total');
             const wsLink = document.getElementById('whatsapp-link');
 
-            countEl.innerText = `${cart.length} ${cart.length === 1 ? 'artículo' : 'artículos'}`;
+            countEl.innerText = `${cart.length} ${cart.length === 1 ? 'prenda' : 'prendas'}`;
             const total = cart.reduce((sum, item) => sum + item.price, 0);
             totalEl.innerText = `Total: $${total}`;
 
@@ -413,18 +414,14 @@
             cart.forEach(item => itemCounts[item.name] = (itemCounts[item.name] || 0) + 1);
             let total = cart.reduce((sum, item) => sum + item.price, 0);
 
-            // Construcción del formato del mensaje para WhatsApp
-            let text = "*¡Hola! Me gustaría hacer el siguiente pedido en La Fábrica de las Milanesas:*\\n\\n";
+            let text = "*¡Hola NÜMIA! Me gustaría consultar disponibilidad por el siguiente pedido:*\\n\\n";
             for (const [name, qty] of Object.entries(itemCounts)) {
                 text += `• *${qty}x* ${name}\\n`;
             }
-            text += `\\n Gran Total: *$${total}*\\n\\n_Enviado desde el catálogo web._`;
+            text += `\\n Total estimado: *$${total}*\\n\\n_Catálogo Online Nümia._`;
 
             document.getElementById('whatsapp-link').href = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
         }
 
-        // Iniciar catálogo al cargar la página
         renderCatalog();
-    </script>
-</body>
-    </html>
+    

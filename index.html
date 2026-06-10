@@ -269,124 +269,181 @@
         </a>
     </div>
 
-    <script>
-        // NÚMERO DE TELÉFONO ACTUALIZADO
-        const WHATSAPP_PHONE = "59898808548"; 
+    
+//     }
+    
+    let message = "Olá NÜMIA! Me gustaría hacer el siguiente pedido:\n\n";
+    let total = 0;
+    
+    cart.forEach(item => {
+        const subtotal = item.price * item.qty;
+        message += `• ${item.qty}x ${item.name} ($${item.price} c/u) = $${subtotal}\n`;
+        total += subtotal;
+    });
+    
+    message += `\n*Total estimado: $${total}*`;
+    
+    const encodedText = encodeURIComponent(message);
+    window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodedText}`, '_blank');
+}
 
-        // Base de datos con imágenes preestablecidas de alta calidad orientadas al rubro
-        const catalogData = {
-            conjuntos: [
-                { id: "co1", name: "Conjunto Encaje con Bralette", desc: "Delicado bralette de encaje con colaless regulable.", price: 790, img: "https://images.unsplash.com/photo-1617952231362-e61cb05ccb16?w=500&auto=format&fit=crop&q=60" },
-                { id: "co2", name: "Conjunto Algodón Sport", desc: "Corpiño deportivo y culotte de algodón premium.", price: 650, img: "https://images.unsplash.com/photo-1579619001815-58097b09bf0b?w=500&auto=format&fit=crop&q=60" },
-                { id: "co3", name: "Conjunto Raso Romántico", desc: "Detalles de puntilla, tazas armadas soft.", price: 890, img: "https://images.unsplash.com/photo-1616166321287-c1d0413000b0?w=500&auto=format&fit=crop&q=60" },
-                { id: "co4", name: "Conjunto Tul Transparencias", desc: "Diseño moderno con breteles dobles ajustables.", price: 750, img: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=500&auto=format&fit=crop&q=60" }
-            ],
-            bombachas: [
-                { id: "bo1", name: "Cola Less de Encaje", desc: "Talles del M al XL. Varios tonos disponibles.", price: 190, img: "https://images.unsplash.com/photo-1608748010899-18f300247112?w=500&auto=format&fit=crop&q=60" },
-                { id: "bo2", name: "Bikini de Algodón Florcitas", desc: "Estampado clásico calce cómodo para el día.", price: 160, img: "https://images.unsplash.com/photo-1582533561751-ef6f6ab93a2e?w=500&auto=format&fit=crop&q=60" }
-            ],
-            soutienes: [
-                { id: "so1", name: "Soutien Lycra con Encaje", desc: "Detalles de encaje fino trabajados en frente y espalda.", price: 490, img: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=500&auto=format&fit=crop&q=60" },
-                { id: "so2", name: "Corpiño Algodón Sin Aro", desc: "Tazas desmontables, máxima libertad diaria.", price: 390, img: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=500&auto=format&fit=crop&q=60" }
-            ],
-            medias: [
-                { id: "me1", name: "Soquetes de Algodón Pack x3", desc: "Pack surtido en colores pasteles y neutros.", price: 120, img: "https://images.unsplash.com/photo-1582966772680-860e372bb558?w=500&auto=format&fit=crop&q=60" },
-                { id: "me2", name: "Medias Largas Abrigo", desc: "Estilo urbano para usar con zapatillas.", price: 90, img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=500&auto=format&fit=crop&q=60" }
-            ],
-            dormir: [
-                { id: "do1", name: "Pijama Satén Short y Musculosa", desc: "Prenda fresca y elegante con detalles de vivos.", price: 980, img: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=500&auto=format&fit=crop&q=60" },
-                { id: "do2", name: "Camisolín de Raso y Puntilla", desc: "Breteles finos regulables, caída espectacular.", price: 790, img: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500&auto=format&fit=crop&q=60" }
-            ]
-        };
+// Iniciar descarga remota
+loadCatalogFromRemote();
+    </<script>
+// CONFIGURACIÓN DE TU BASE DE DATOS REMOTA
+const BIN_ID = "6a28d3aff5f4af5e29d5ae82"; 
+const JSON_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+const MASTER_KEY = "$2a$10$qiyVtGY2eFG68QFFYJo2/.me5EmiyQdWsnrAHrXL5UZaXuSJKrwpW"; 
 
-        let cart = [];
+// NÚMERO DE TELÉFONO DE NÜMIA
+const WHATSAPP_PHONE = "59898808548"; 
 
-        function renderCatalog() {
-            for (const [category, products] of Object.entries(catalogData)) {
-                const container = document.getElementById(`cat-${category}`);
-                if (!container) continue;
-                
-                let html = "";
-                products.forEach(p => {
-                    html += `
-                        <div class="product-card">
-                            <div class="product-image" style="background-image: url('${p.img}');"></div>
-                            <div class="product-info">
-                                <div class="product-title">${p.name}</div>
-                                <div class="product-desc">${p.desc}</div>
-                                <div class="product-meta">
-                                    <div class="product-price">$ ${p.price}</div>
-                                    <button class="btn-add" onclick="addToCart('${p.name}', ${p.price})">Agregar</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-                container.innerHTML = html;
+let catalogData = {};
+let cart = [];
+
+// Función para conectar y descargar los productos en tiempo real
+async function loadCatalogFromRemote() {
+    try {
+        const response = await fetch(JSON_URL, {
+            method: 'GET',
+            headers: {
+                'X-Master-Key': MASTER_KEY,
+                'X-Bin-Meta': 'false'
             }
+        });
+        
+        if (!response.ok) {
+            throw new Error("No se pudo conectar con JsonBin. Revisá la Master Key.");
         }
 
-        // CORREGIDO: Ahora recibe de forma explícita el evento 'e' para alternar la visualización
-        function switchCategory(categoryName, e) {
-            if(e) e.preventDefault();
-
-            document.querySelectorAll('.products-section').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.category-btn').forEach(el => el.classList.remove('active'));
-            
-            const activeSection = document.getElementById(`cat-${categoryName}`);
-            if(activeSection) activeSection.classList.add('active');
-            
-            if(e && e.target) {
-                e.target.classList.add('active');
-            }
-        }
-
-        function addToCart(name, price) {
-            cart.push({ name, price });
-            updateCartUI();
-            
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 1200);
-        }
-
-        function updateCartUI() {
-            const countEl = document.getElementById('cart-count');
-            const totalEl = document.getElementById('cart-total');
-            const wsLink = document.getElementById('whatsapp-link');
-
-            countEl.innerText = `${cart.length} ${cart.length === 1 ? 'prenda' : 'prendas'}`;
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            totalEl.innerText = `Total: $${total}`;
-
-            if (cart.length > 0) {
-                wsLink.classList.remove('disabled');
-            } else {
-                wsLink.classList.add('disabled');
-            }
-        }
-
-        function sendOrder(e) {
-            if (cart.length === 0) {
-                e.preventDefault();
-                return;
-            }
-
-            let itemCounts = {};
-            cart.forEach(item => itemCounts[item.name] = (itemCounts[item.name] || 0) + 1);
-            let total = cart.reduce((sum, item) => sum + item.price, 0);
-
-            let text = "*¡Hola NÜMIA! Me gustaría consultar disponibilidad por el siguiente pedido:*\\n\\n";
-            for (const [name, qty] of Object.entries(itemCounts)) {
-                text += `• *${qty}x* ${name}\\n`;
-            }
-            text += `\\nTotal estimado: *$${total}*\\n\\n_Catálogo Online Nümia._`;
-
-            document.getElementById('whatsapp-link').href = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
-        }
-
-        // Ejecutar carga inicial
+        catalogData = await response.json();
         renderCatalog();
+        
+    } catch (error) {
+        console.error("Error al cargar el catálogo:", error);
+    }
+}
+
+// Dibuja las tarjetas de producto dinámicamente
+function renderCatalog() {
+    for (const [category, products] of Object.entries(catalogData)) {
+        const container = document.getElementById(`cat-${category}`);
+        if (!container) continue;
+        
+        let html = "";
+        products.forEach(p => {
+            html += `
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('${p.img}');"></div>
+                    <div class="product-info">
+                        <div class="product-title">${p.name}</div>
+                        <div class="product-desc">${p.desc}</div>
+                        <div class="product-meta">
+                            <div class="product-price">$ ${p.price}</div>
+                            <button class="btn-add" onclick="addToCart('${p.name}', ${p.price})">Agregar</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+}
+
+// Cambiar de categoría en las pestañas
+function switchCategory(category) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.category-content').forEach(content => content.classList.remove('active'));
+    
+    event.currentTarget.classList.add('active');
+    const targetContent = document.getElementById(`cat-${category}`);
+    if (targetContent) targetContent.classList.add('active');
+}
+
+// Agregar productos al carrito
+function addToCart(name, price) {
+    const existing = cart.find(item => item.name === name);
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({ name, price, qty: 1 });
+    }
+    updateCartUI();
+}
+
+// Modificar cantidades en el carrito
+function updateQty(name, delta) {
+    const item = cart.find(item => item.name === name);
+    if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) {
+            cart = cart.filter(i => i.name !== name);
+        }
+    }
+    updateCartUI();
+}
+
+// Actualizar la interfaz del carrito y totales
+function updateCartUI() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartCount = document.getElementById('cart-count');
+    const cartTotal = document.getElementById('cart-total');
+    
+    let totalItems = 0;
+    let totalPrice = 0;
+    let html = "";
+    
+    cart.forEach(item => {
+        totalItems += item.qty;
+        totalPrice += item.price * item.qty;
+        html += `
+            <div class="cart-item">
+                <div>
+                    <strong>${item.name}</strong><br>
+                    <span style="color:#888;">$ ${item.price} c/u</span>
+                </div>
+                <div class="cart-item-actions">
+                    <button onclick="updateQty('${item.name}', -1)">-</button>
+                    <span>${item.qty}</span>
+                    <button onclick="updateQty('${item.name}', 1)">+</button>
+                </div>
+            </div>
+        `;
+    });
+    
+    cartItemsContainer.innerHTML = html || "<p style='color:#888; text-align:center;'>Tu carrito está vacío.</p>";
+    cartCount.innerText = totalItems;
+    cartTotal.innerText = totalPrice;
+}
+
+// Alternar visibilidad del modal del carrito
+function toggleCart() {
+    const modal = document.getElementById('cart-modal');
+    modal.classList.toggle('active');
+}
+
+// Enviar el pedido empaquetado a WhatsApp
+function sendOrder() {
+    if (cart.length === 0) {
+        alert("El carrito está vacío.");
+        return;
+    }
+    
+    let message = "Olá NÜMIA! Me gustaría hacer el siguiente pedido:\n\n";
+    let total = 0;
+    
+    cart.forEach(item => {
+        const subtotal = item.price * item.qty;
+        message += `• ${item.qty}x ${item.name} ($${item.price} c/u) = $${subtotal}\n`;
+        total += subtotal;
+    });
+    
+    message += `\n*Total estimado: $${total}*`;
+    
+    const encodedText = encodeURIComponent(message);
+    window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodedText}`, '_blank');
+}
+
+// Iniciar descarga remota al abrir la página
+loadCatalogFromRemote();
     </script>
-</body>
-</html>

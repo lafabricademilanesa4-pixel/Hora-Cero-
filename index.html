@@ -1,296 +1,19 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NÜMIA | Ropa Interior</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
+<!-- ================================================================= -->
+<!-- 1. CONTENEDORES VISUALES (HTML)                                  -->
+<!-- Colocá esto justo debajo de tu menú de categorías/pestañas       -->
+<!-- ================================================================= -->
+<div id="cat-conjuntos" class="category-content active"></div>
+<div id="cat-bombachas" class="category-content"></div>
+<div id="cat-soutienes" class="category-content"></div>
+<div id="cat-medias" class="category-content"></div>
+<div id="cat-dormir" class="category-content"></div>
 
-        body {
-            background-color: #faf8fc;
-            color: #4a4a4a;
-            padding-bottom: 110px;
-        }
-
-        /* Encabezado elegante inspirado en el logo */
-        header {
-            background-color: #ffffff;
-            padding: 25px 15px;
-            text-align: center;
-            border-bottom: 1px solid #eadef7;
-            box-shadow: 0 2px 10px rgba(162, 131, 219, 0.05);
-        }
-
-        header h1 {
-            font-size: 26px;
-            color: #2a2a2a;
-            letter-spacing: 4px;
-            font-weight: 400;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        header p {
-            font-size: 12px;
-            color: #8b7ca2;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* Barra de Categorías Desplazable */
-        .categories-container {
-            position: sticky;
-            top: 0;
-            background-color: #ffffff;
-            padding: 12px 0;
-            z-index: 10;
-            overflow-x: auto;
-            white-space: nowrap;
-            border-bottom: 1px solid #ebdff9;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            -webkit-overflow-scrolling: touch;
-            text-align: center;
-        }
-
-        .categories-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .category-btn {
-            display: inline-block;
-            background: #f5edf1;
-            color: #7b6a93;
-            padding: 10px 20px;
-            margin: 0 4px;
-            border-radius: 25px;
-            border: 1px solid #e4daf2;
-            font-weight: 500;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .category-btn.active {
-            background: #a283db;
-            color: #ffffff;
-            border-color: #a283db;
-            box-shadow: 0 3px 8px rgba(162, 131, 219, 0.3);
-        }
-
-        .container {
-            max-width: 500px;
-            margin: 15px auto;
-            padding: 0 15px;
-        }
-
-        .products-section {
-            display: none;
-        }
-
-        .products-section.active {
-            display: block;
-        }
-
-        /* Tarjeta de Producto Estilo Boutique con Imagen Real */
-        .product-card {
-            background: #ffffff;
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            border: 1px solid #efeaf6;
-            box-shadow: 0 4px 15px rgba(162, 131, 219, 0.04);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 280px;
-            background-color: #f6f3f9;
-            background-size: cover;
-            background-position: center;
-            border-bottom: 1px solid #f1eaf7;
-        }
-
-        .product-info {
-            padding: 15px;
-        }
-
-        .product-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333333;
-            margin-bottom: 4px;
-        }
-
-        .product-desc {
-            font-size: 12px;
-            color: #7a7a7a;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-
-        .product-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .product-price {
-            font-size: 17px;
-            color: #845ec2;
-            font-weight: 700;
-        }
-
-        .btn-add {
-            background-color: #a283db;
-            color: #ffffff;
-            padding: 8px 18px;
-            border: none;
-            border-radius: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 12px;
-            transition: background 0.2s;
-        }
-
-        .btn-add:active {
-            background-color: #845ec2;
-        }
-
-        /* Barra Inferior de Confirmación */
-        .cart-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: #ffffff;
-            border-top: 1px solid #ebdff9;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 100;
-            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.04);
-        }
-
-        .cart-summary {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cart-count {
-            font-size: 11px;
-            color: #8b7ca2;
-        }
-
-        .cart-total {
-            font-size: 18px;
-            font-weight: 700;
-            color: #333333;
-        }
-
-        .btn-whatsapp {
-            background-color: #25d366;
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 13px;
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
-        }
-
-        .btn-whatsapp.disabled {
-            background-color: #e0dbec;
-            color: #a6a1b5;
-            pointer-events: none;
-            box-shadow: none;
-        }
-
-        /* Notificación Flotante */
-        .toast {
-            position: fixed;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #4e367c;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            z-index: 1000;
-            pointer-events: none;
-        }
-        .toast.show { opacity: 1; }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>NÜMIA</h1>
-        <p>Ropa Interior & Lencería</p>
-    </header>
-
-    <div class="toast" id="toast">Agregado al pedido</div>
-
-    <!-- Pestañas de categorías -->
-    <div class="categories-container">
-        <button class="category-btn active" onclick="switchCategory('conjuntos', event)">Conjuntos</button>
-        <button class="category-btn" onclick="switchCategory('bombachas', event)">Bombachas / Less</button>
-        <button class="category-btn" onclick="switchCategory('soutienes', event)">Soutienes</button>
-        <button class="category-btn" onclick="switchCategory('medias', event)">Medias / Soquetes</button>
-        <button class="category-btn" onclick="switchCategory('dormir', event)">Línea Dormir</button>
-    </div>
-
-    <div class="container">
-        <div id="cat-conjuntos" class="products-section active"></div>
-        <div id="cat-bombachas" class="products-section"></div>
-        <div id="cat-soutienes" class="products-section"></div>
-        <div id="cat-medias" class="products-section"></div>
-        <div id="cat-dormir" class="products-section"></div>
-    </div>
-
-    <!-- Barra de pedido fija -->
-    <div class="cart-bar">
-        <div class="cart-summary">
-            <span class="cart-count" id="cart-count">0 prendas</span>
-            <span class="cart-total" id="cart-total">Total: $0</span>
-        </div>
-        <a href="#" id="whatsapp-link" class="btn-whatsapp disabled" target="_blank" onclick="sendOrder(event)">
-            Enviar Pedido
-        </a>
-    </div>
-
-    
-//     }
-    
-    let message = "Olá NÜMIA! Me gustaría hacer el siguiente pedido:\n\n";
-    let total = 0;
-    
-    cart.forEach(item => {
-        const subtotal = item.price * item.qty;
-        message += `• ${item.qty}x ${item.name} ($${item.price} c/u) = $${subtotal}\n`;
-        total += subtotal;
-    });
-    
-    message += `\n*Total estimado: $${total}*`;
-    
-    const encodedText = encodeURIComponent(message);
-    window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodedText}`, '_blank');
-}
-
-// Iniciar descarga remota
-loadCatalogFromRemote();
-    </<script>
-// CONFIGURACIÓN DE TU BASE DE DATOS REMOTA
+<!-- ================================================================= -->
+<!-- 2. LÓGICA EN SEGUNDO PLANO (JAVASCRIPT)                          -->
+<!-- El navegador leerá esto internamente para renderizar las prendas -->
+<!-- ================================================================= -->
+<script>
+// CONFIGURACIÓN DE TU BASE DE DATOS REMOTA (JSONBIN.IO)
 const BIN_ID = "6a28d3aff5f4af5e29d5ae82"; 
 const JSON_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 const MASTER_KEY = "$2a$10$qiyVtGY2eFG68QFFYJo2/.me5EmiyQdWsnrAHrXL5UZaXuSJKrwpW"; 
@@ -301,7 +24,7 @@ const WHATSAPP_PHONE = "59898808548";
 let catalogData = {};
 let cart = [];
 
-// Función para conectar y descargar los productos en tiempo real
+// Función para conectar y descargar los productos en tiempo real desde internet
 async function loadCatalogFromRemote() {
     try {
         const response = await fetch(JSON_URL, {
@@ -324,7 +47,7 @@ async function loadCatalogFromRemote() {
     }
 }
 
-// Dibuja las tarjetas de producto dinámicamente
+// Dibuja las tarjetas de producto dinámicamente dentro de los contenedores HTML
 function renderCatalog() {
     for (const [category, products] of Object.entries(catalogData)) {
         const container = document.getElementById(`cat-${category}`);
@@ -350,7 +73,7 @@ function renderCatalog() {
     }
 }
 
-// Cambiar de categoría en las pestañas
+// Cambiar de categoría activa al tocar las pestañas
 function switchCategory(category) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.category-content').forEach(content => content.classList.remove('active'));
@@ -360,7 +83,7 @@ function switchCategory(category) {
     if (targetContent) targetContent.classList.add('active');
 }
 
-// Agregar productos al carrito
+// Agregar productos seleccionados al carrito
 function addToCart(name, price) {
     const existing = cart.find(item => item.name === name);
     if (existing) {
@@ -371,7 +94,7 @@ function addToCart(name, price) {
     updateCartUI();
 }
 
-// Modificar cantidades en el carrito
+// Modificar cantidades de artículos (+ / -) dentro del carrito
 function updateQty(name, delta) {
     const item = cart.find(item => item.name === name);
     if (item) {
@@ -383,7 +106,7 @@ function updateQty(name, delta) {
     updateCartUI();
 }
 
-// Actualizar la interfaz del carrito y totales
+// Actualizar visualmente la lista flotante del carrito y sus sumas totales
 function updateCartUI() {
     const cartItemsContainer = document.getElementById('cart-items');
     const cartCount = document.getElementById('cart-count');
@@ -416,13 +139,13 @@ function updateCartUI() {
     cartTotal.innerText = totalPrice;
 }
 
-// Alternar visibilidad del modal del carrito
+// Abrir o cerrar la pestaña desplegable del carrito
 function toggleCart() {
     const modal = document.getElementById('cart-modal');
     modal.classList.toggle('active');
 }
 
-// Enviar el pedido empaquetado a WhatsApp
+// Procesar el pedido estructurado y redirigir al WhatsApp de la tienda
 function sendOrder() {
     if (cart.length === 0) {
         alert("El carrito está vacío.");
@@ -444,6 +167,6 @@ function sendOrder() {
     window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodedText}`, '_blank');
 }
 
-// Iniciar descarga remota al abrir la página
+// Disparar de forma automática la descarga de artículos remotos al cargar la pestaña
 loadCatalogFromRemote();
-    </script>
+                                                  </script>
